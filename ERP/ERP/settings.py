@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard.apps.DashboardConfig', # setting up the database for the dashboard app
+    'dashboard.apps.DashboardConfig', # setting up the dashboard app
+    'register.apps.RegisterConfig', # setting up the register app
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,8 @@ DATABASES = {
     }
 }
 
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

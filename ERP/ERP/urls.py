@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from register import views as v
 
 urlpatterns = [
     path('', include('dashboard.urls')), # we link to the app dashboard
+    path('', include('register.urls')), # we link to the app register
     path('admin/', admin.site.urls),
+    
 ]
