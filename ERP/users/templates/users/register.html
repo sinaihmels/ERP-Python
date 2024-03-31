@@ -1,0 +1,12 @@
+{% extends "users/base.html" %}
+{% block title %}
+User Registration
+{% endblock %}
+
+{% block content %}
+<form action="/users/register/" method="post">
+    {% csrf_token %}
+    {{form}}
+    <button>Submit</button>
+</form>
+{% endblock %}

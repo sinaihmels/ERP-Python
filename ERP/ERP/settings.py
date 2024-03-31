@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig', # setting up the dashboard app
-    'register.apps.RegisterConfig', # setting up the register app
+    'users.apps.UsersConfig' # setting up the users app
 ]
 
 MIDDLEWARE = [

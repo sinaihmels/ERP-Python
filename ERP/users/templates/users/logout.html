@@ -1,0 +1,12 @@
+{% extends "users/base.html" %}
+{% block title %}
+User Logout
+{% endblock %}
+
+{% block content %}
+<h1>User Logout</h1>
+<form action="/users/logout/" method="post">
+    {% csrf_token %}
+    <button>Logout</button>
+</form>
+{% endblock %}
