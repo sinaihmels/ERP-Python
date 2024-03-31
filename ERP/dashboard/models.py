@@ -13,7 +13,6 @@ class Item(models.Model):
     productclass = models.ForeignKey(ProductClass, on_delete=models.CASCADE)
     description = models.CharField(max_length=400)
     id = models.BigIntegerField().primary_key=True
-    instock = models.BooleanField()
     amount_instock = models.PositiveBigIntegerField(default=1)
     color_choices = [ # These are tuples for the color choices possible 
         ('BL', 'Blue'),
@@ -34,7 +33,8 @@ class Item(models.Model):
         max_length= 100, 
         choices=color_choices,
         default='Multicolor')
-    
+    image = models.ImageField(upload_to="uploads/")
 
     def __str__(self):
         return self.description
+    

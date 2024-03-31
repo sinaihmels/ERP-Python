@@ -8,11 +8,12 @@ inventory
 <h1>Inventory</h1>
 <ul>
     {% for item in items %}
-        {% if item.instock == True %}
-            <li>{{item.description}} - Stock: {{item.amount_instock}}</li>
-        {% else %}
-            <li>{{item.description}} - Stock: 0</li>
-        {% endif %}
+
+        <li>
+            <img src="{{item.image.url}}" width="50" height="50" alt="image of item"></img>
+                    {{item.description}} - Stock: {{item.amount_instock}}
+        </li>
+
     {% endfor %}
 </ul>
 
@@ -40,6 +41,7 @@ inventory
             <option value="{{row.1}}">{{row.1}}</option>
         {% endfor %}
     </select>
+    <input name="file" type="file" accept="image/*">
     <p></p>
     <button type="submit" name="update_inventory">Add to inventory</button>
 </form>

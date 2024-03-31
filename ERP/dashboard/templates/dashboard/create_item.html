@@ -1,0 +1,14 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}
+Create Item
+{% endblock %}
+
+{% block content %}
+<h1>Create Item</h1>
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{form}}
+    <button>Submit</button>
+</form>
+{% endblock %}
