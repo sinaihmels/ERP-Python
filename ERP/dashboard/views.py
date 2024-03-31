@@ -1,5 +1,6 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import ProductClass, Item
+from .forms import CreateItemForm
 
 # Create your views here.
 def index(request):
@@ -21,6 +22,7 @@ def index(request):
             ('GO', 'Gold'),
             ('PU', 'Purple'),
         ]})
+    
     if request.method == "POST": 
         if "update_inventory" in request.POST:
             # a new item was added to the inventory
@@ -38,8 +40,9 @@ def index(request):
                 return HttpResponse("Please provide a valid class", status=400)
             if not new_color:
                 return HttpResponse("Please provide a valid color", status=400)
+            new_image = request.POST.get("file")
             # add the new item to the database
-            new_item = Item(productclass=new_class, description=new_description, instock=True, amount_instock=amount_to_stock, color=new_color)
+            new_item = Item(productclass=new_class, description=new_description, instock=True, amount_instock=amount_to_stock, color=new_color, image=new_image)
             # save the new_item to the database
             new_item.save()
             return HttpResponse("Successfully added!", status=200)
@@ -64,3 +67,13 @@ def index(request):
 
 def dashboard(response):
     return render(response, "dashboard/dashboard.html", {})
+
+def create_item_view(request):
+    if request.method == "POST": 
+        form = CreateItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("dashboard:index")
+    else:
+        form = CreateItemForm()
+    return render(request, "dashboard/create_item.html", {"form": form})
