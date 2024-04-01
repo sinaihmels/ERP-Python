@@ -1,0 +1,63 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}
+inventory
+{% endblock %}
+
+{% block content %}
+<h1>Inventory</h1>
+<ul>
+    {% for item in items %}
+
+        <li>
+            <img src="{{item.image.url}}" width="50" height="50" alt="image of item"></img>
+                    {{item.description}} - Stock: {{item.amount_instock}}
+        </li>
+
+    {% endfor %}
+</ul>
+
+<h2>Add new inventory</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="dropdown">
+        <p>Product Class</p>
+        <select id="myDropdown" class="dropdown-content" name="class" >
+            {% for class in classes %}
+                <option value="{{class.id}}">{{class.name}} (ID: {{class.id}})</option>
+            {% empty %}
+                <li>Sorry this didn't work</li>
+            {% endfor %}
+        </select>
+    </div>
+
+    <p></p>
+    <input name="description" placeholder="Product description" type="text" maxlength="400">
+    <br/>
+    <a>Amount of Product</a><input type="number" min="0" name="amount">
+    <p></p>
+    <select id="Dropdown" class="dropdown-content"name="color" >
+        {% for row in color_choices %}
+            <option value="{{row.1}}">{{row.1}}</option>
+        {% endfor %}
+    </select>
+    <input name="file" type="file" accept="image/*">
+    <p></p>
+    <button type="submit" name="update_inventory">Add to inventory</button>
+</form>
+
+<h2>Update our inventory</h2>
+<ul>
+    {% for item in items %}
+        <li>
+            <div>Description: {{item.description}} (Id: {{item.id}}) Stock: {{item.amount_instock}}</div>
+            <input name="new_amount" type="number">
+            <button type="submit" name="update_amount" value="{{item.id}}">Update the amount</button>
+        </li>
+    {% endfor %}
+</ul>
+
+<h1>Make a graph? With the changes?</h1>
+<script>
+</script>
+{% endblock %}
