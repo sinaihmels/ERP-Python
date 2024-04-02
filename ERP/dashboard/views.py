@@ -23,29 +23,29 @@ def index(request):
             ('PU', 'Purple'),
         ]})
     
-    if request.method == "POST": 
-        if "update_inventory" in request.POST:
+    elif request.method == "POST": 
+        if "add_new_product" in request.POST:
             # a new item was added to the inventory
-            # verify input
-            new_description = request.POST.get("description").strip()
-            if not new_description:
-                return HttpResponse("Please provide a description", status=400)
-            amount_to_stock = request.POST.get("amount")
-            if not amount_to_stock or int(amount_to_stock) <= 0:
-                return HttpResponse("Please provide a valid amount of the product", status=400)
-            new_color = request.POST.get("color")
-            new_class_id = request.POST.get("class")
+            # do I need to verify the input as the fields are all required on the front end
+            form_data = request.POST
+            new_name = form_data.get("name").strip()
+            new_description = form_data.get("description").strip()
+            new_class_id = form_data.get("class")
             new_class = ProductClass.objects.get(pk=int(new_class_id))
-            if not new_class:
-                return HttpResponse("Please provide a valid class", status=400)
-            if not new_color:
-                return HttpResponse("Please provide a valid color", status=400)
-            new_image = request.POST.get("file")
+            new_color = form_data.get("color")
+            new_price  = form_data.get("price").strip()
+            amount_to_stock = form_data.get("amount_instock")
+            new_image = request.FILES["image"]
+
+            if not new_description or not amount_to_stock or int(amount_to_stock) <= 0 or not new_class or not new_color:
+                return HttpResponse("Please provide valid data", status=400)
+            
             # add the new item to the database
-            new_item = Item(productclass=new_class, description=new_description, instock=True, amount_instock=amount_to_stock, color=new_color, image=new_image)
+            new_item = Item(name=new_name, description=new_description, productclass=new_class, color=new_color, price=new_price, amount_instock=amount_to_stock,  image=new_image)
             # save the new_item to the database
             new_item.save()
-            return HttpResponse("Successfully added!", status=200)
+            return redirect("dashboard:dashboard")
+
 
         elif "update_amount" in request.POST:
             # the amount of an item in the inventory was updated
@@ -60,6 +60,8 @@ def index(request):
                 item_to_change = Item.objects.get(pk=id)
                 item_to_change.amount_instock = new_amount
                 item_to_change.save()
+                return redirect("dashbard:dashboard")
+
                 
             
 

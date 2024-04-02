@@ -34,6 +34,8 @@ class Item(models.Model):
         choices=color_choices,
         default='Multicolor')
     image = models.ImageField(upload_to="uploads/")
+    price = models.BigIntegerField(default=0)
+    name = models.CharField(max_length=100, default="name")
 
     def __str__(self):
         return self.description
