@@ -40,11 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig', # setting up the dashboard app
     'users.apps.UsersConfig', # setting up the users app
-    'tailwind',
-    'theme',
     'django_browser_reload',
+    'compressor',
 ]
-TAILWIND_APP_NAME = 'theme'
+
 
 INTERNAL_IPS = [
     '127.0.0.1',
@@ -66,7 +65,7 @@ ROOT_URLCONF = 'ERP.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,3 +138,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+COMPRESS_ROOT = BASE_DIR / 'static'
+
+COMPRESS_ENABLED = False
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
