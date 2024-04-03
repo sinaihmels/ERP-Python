@@ -34,9 +34,15 @@ class Item(models.Model):
         choices=color_choices,
         default='Multicolor')
     image = models.ImageField(upload_to="uploads/")
-    price = models.BigIntegerField(default=0)
-    name = models.CharField(max_length=100, default="name")
+    price = models.FloatField(default=0)
+    name = models.CharField(max_length=100, default="name") # TODO: Maybe remove default="name"????
 
     def __str__(self):
         return self.description
     
+class Color(models.Model):
+    id = models.BigIntegerField().primary_key=True
+    color = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.color
