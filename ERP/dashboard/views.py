@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import ProductClass, Item, Color
 from .forms import CreateItemForm
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string 
+from django.utils.datastructures import MultiValueDictKeyError
 
 # Create your views here.
 def inventory(request):
@@ -47,19 +48,24 @@ def inventory(request):
             new_color = form_data.get("color")
             new_price  = form_data.get("price").strip()
             new_amount_instock = form_data.get("amount_instock")
-            new_image = request.FILES["image"]
+            
 
             if not new_description or not new_amount_instock or int(new_amount_instock) <= 0 or not new_class or not new_color or not item_id:
                 return HttpResponse("Please provide valid data", status=400)
             
             old_item = Item.objects.get(pk=item_id)
+            try:
+                new_image = request.FILES["image"]
+                old_item.image = new_image
+            except MultiValueDictKeyError as e:
+                pass
             old_item.name = new_name
             old_item.description = new_description
             old_item.productclass = new_class
             old_item.color = new_color
             old_item.price = new_price
             old_item.amount_instock = new_amount_instock
-            old_item.image = new_image
+
             old_item.save()
             return redirect("dashboard:inventory")
         

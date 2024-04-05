@@ -30,8 +30,7 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             {% for class in classes %}
-            <option value="{{class.id}} {% if item_to_be_edited.productclass == class %}selected{% endif %}">{{class}}
-            </option>
+            <option value="{{class.id}}">{{class}}</option>
             {% endfor %}
         </select>
     </div>
@@ -41,7 +40,7 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             {% for color in color_choices %}
-            <option value="{{color}}" {% if item_to_be_edited.color == color %}selected{% endif %}>{{color}}</option>
+            <option value="{{color}}">{{color}}</option>
             {% endfor %}
         </select>
     </div>
