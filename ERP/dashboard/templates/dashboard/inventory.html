@@ -81,61 +81,56 @@ Inventory
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selected
                             products</label>
-
                     </div>
-                  
-
-                    </div>
-                    <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400">
-                        <thead class="text-s text-indigo-900 uppercase bg-gray-300">
-                            <th scope="col" class="px-6 py-3">
-                                Image
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Amount
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Delete
-                            </th>
-                        </thead>
-                        <tbody>
-                            {% for item in items %}
-                                {% if item.id in checkedItemIds %}
-                            <tr
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700">
-
-                                <td class="p-4">
-                                    <img src="{{item.image.url}}" class="w-16 md:w-32 max-w-full max-h-full"
-                                        alt="{{item.description}}">
-                                </td>
-                                <td class="px-6 py-4" id="name">
-                                    {{item.name}}
-                                </td>
-                                <td class="px-6 py-4" id="name">
-                                    {{item.amount_instock}}
-                                </td>
-                                <td>Delete</td>
-
-                            </tr>
+                </div>
+                <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400">
+                    <thead class="text-s text-indigo-900 uppercase bg-gray-300">
+                        <th scope="col" class="px-6 py-3">
+                            Image
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Amount
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Delete
+                        </th>
+                    </thead>
+                        <tbody id="pdfTableBody"> 
+                            <!-- Table body where rows will be dynamically added -->
+                            {% for item_id in checkedItemIds %}
+                            {% for i in items %}
+                                {% if item_id == i.id %}
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700">
+                                        <td class="p-4">
+                                            <img src="{{ i.image.url }}" class="w-16 md:w-32 max-w-full max-h-full" alt="{{ i.description }}">
+                                        </td>
+                                        <td class="px-6 py-4" id="name_for_pdf">
+                                            {{ i.name }}
+                                        </td>
+                                        <td class="px-6 py-4" id="amount_for_pdf">
+                                            {{ i.amount_instock }}
+                                        </td>
+                                        <td>Delete</td>
+                                    </tr>
                                 {% endif %}
-                            {% endfor%}
+                            {% endfor %}
+                        {% endfor %}
                         </tbody>
                     </table>
-                </div>
-
-                <button type="submit"
-                    class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                    <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    Create PDF
-                </button>
+    
+                    <button type="submit"
+                        class="text-indigo-900 inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Create PDF
+                    </button>
             </form>
         </div>
     </div>
@@ -272,7 +267,7 @@ Inventory
 
 
 
-<!-- <div id="edit-drawer-container"></div> -->
+<!--This is the edit item container-->
 <div id="edit_item"
     class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800"
     tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
@@ -392,11 +387,9 @@ Inventory
                     Cancel
                 </button>
             </div>
+        </div>
     </form>
 </div>
-
-
-
 {% endblock %}
 
 
@@ -483,25 +476,9 @@ Inventory
         });
 
         function sendCheckedItemIds(checkedItemIds) {
-            // Sending AJAX request to the server
-            $.ajax({
-                url: '/inventory/',
-                type: 'POST',
-                data: {
-                    'checkedItemIds[]': checkedItemIds,
-                    csrfmiddlewaretoken: '{{ csrf_token }}' // Including CSRF token
-                },
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (xhr, errmsg, err) {
-                    console.log('Error sending data:', errmsg);
-                }
-            });
+            return checkedItemIds;
         }
     });
 </script>
-
-
 
 {% endblock %}
