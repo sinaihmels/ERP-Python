@@ -7,46 +7,125 @@ Inventory
 {% endblock %}
 
 {% block content %}
+<div class="" name="navigation above table">
+    <div
+        class="min-w-full align-middle flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
 
-<div class="">
-    <div class="min-w-full align-middle flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-
-        
-        <label for="table-search" class="sr-only">Search for items</label>
-        <div class="relative">
-            <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
-                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clip-rule="evenodd"></path>
-                </svg>
+        <!--This is the search bar-->
+        <div class="pb-4 bg-indigo-50 dark:bg-gray-900">
+            <label for="table-search" class="sr-only">Search</label>
+            <div class="relative mt-1">
+                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </div>
+                <input type="text" id="table-search" name="searched"
+                    class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Search for items">
             </div>
-            <input type="text" id="table-search"
-                class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500
-            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search for items">
         </div>
 
-        <div>
-
-        </div class="text-center">
-        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
+        <!--This is the add new product button-->
+        <div class="text-center">
+            <button class="text-white bg-indigo-700 hover:bg-gray-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
             dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-drawer-show="Add_new_item"
-            data-drawer-target="Add_new_item" aria-controls="Add_new_item" data-drawer-placement="right" type="button">
-            Add new Product
-        </button>
+                data-drawer-target="Add_new_item" aria-controls="Add_new_item" data-drawer-placement="right"
+                type="button">
+                Add new Product
+            </button>
+        </div>
+
+        <!--This is the create a pdf of items button-->
+        <div class="text-center">
+
+
+            <button class="text-white bg-indigo-700 hover:bg-gray-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
+                dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" aria-controls="create_pdf"
+                type="button" id="create_pdfButton" data-modal-target="create_pdf" data-modal-toggle="create_pdf"
+                name="create_pdf">
+                Create pdf inventory list
+            </button>
+
+        </div>
+    </div>
+</div>
+<!-- Main modal create_pdf-->
+<div id="create_pdf" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <!-- Modal content create_pdf-->
+        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <!-- Modal header create_pdf-->
+            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Create PDF
+                </h3>
+                <button type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="create_pdf">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body create_pdf-->
+            <form action="#">
+                <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selected
+                            products</label>
+                    </div>
+                </div>
+                <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400">
+                    <thead class="text-s text-indigo-900 uppercase bg-gray-300">
+                        <th scope="col" class="px-6 py-3">
+                            Image
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Amount
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Delete
+                        </th>
+                    </thead>
+                        <tbody id="pdfTableBody"> 
+                            <!-- Table body where rows will be dynamically added -->
+                            
+                        </tbody>
+                    </table>
+    
+                    <button type="submit"
+                        class="text-indigo-900 inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Create PDF
+                    </button>
+            </form>
+        </div>
     </div>
 </div>
 
-
-
+<!--This is the table created for the items within the database-->
 <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400 ">
-    <thead class="text-xs text-indigo-200 uppercase bg-indigo-50 dark:bg-indigo-700 dark:text-indigo-400">
+    <thead class="text-s text-indigo-900 uppercase bg-gray-300">
         <tr>
             <th scope="col" class="p-4">
                 <div class="flex items-center">
-                    <input id="checkbox-all-search" type="checkbox"
+                    <input id="checkbox-all-search" type="checkbox" id="select_all_checkbox"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600
                          dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="checkbox-all-search" class="sr-only">checkbox</label>
@@ -83,25 +162,26 @@ Inventory
     </thead>
     <tbody>
         {% for item in items %}
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700"
+            id="item-row">
             <td class="w-4 p-4">
                 <div class="flex items-center">
-                    <input id="checkbox-table-search-1" type="checkbox"
+                    <input id="checkbox-table-search-1" type="checkbox" name="checkbox_item" value="{{item.id}}"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600
-                         dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                         dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 inventory-checkbox">
                     <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                 </div>
             </td>
             <td class="p-4">
                 <img src="{{item.image.url}}" class="w-16 md:w-32 max-w-full max-h-full" alt="{{item.description}}">
             </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td class="px-6 py-4" id="name">
                 {{item.name}}
-            </th>
-            <td class="px-6 py-4">
+            </td>
+            <td class="px-6 py-4" id="color">
                 {{item.color}}
             </td>
-            <td class="px-6 py-4">
+            <td class="px-6 py-4" id="productclass">
                 {{item.productclass}}
             </td>
             <td class="px-6 py-4">
@@ -114,14 +194,13 @@ Inventory
                 {{item.description}}
             </td>
             <td class="px-6 py-4">
-                <button class="edit-button text-white bg-indigo-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
+                <button class="edit-button text-white bg-indigo-700 hover:bg-gray-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
                 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button"
                     data-item-id="{{item.id}}" data-drawer-show="edit_item" data-drawer-target="edit_item"
                     aria-controls="edit_item" data-drawer-placement="right">Edit</button>
             </td>
             <td class="px-6 py-4">
-                <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                    class="text-white bg-indigo-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
+                <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="text-white bg-indigo-700 hover:bg-gray-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
                     dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-80">Delete</button>
             </td>
         </tr>
@@ -168,11 +247,10 @@ Inventory
         {% endfor %}
     </tbody>
 </table>
-<!-- onClick="document.getElementById('edit_item_id').value ='{{item.id}}'"
--->
 
 
-<!-- <div id="edit-drawer-container"></div> -->
+
+<!--This is the edit item container-->
 <div id="edit_item"
     class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800"
     tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
@@ -292,62 +370,18 @@ Inventory
                     Cancel
                 </button>
             </div>
+        </div>
     </form>
 </div>
-
-
-<!-- <script>
-    $(document).ready(function() {
-        $(".edit-btn").click(function() {
-            var itemId = $(this).data("item-id");
-            
-            // Populate the drawer with the retrieved item information
-            $("#edit-item-id").val(itemId);
-
-        });
-    });
-    </script> -->
-
-
 {% endblock %}
 
 
 {% block javascript %}
-
+<!--script for the edit drawer-->
 <script type="module">
-
-    // $(document).ready(function () {
-    //     $(".edit-btn").click(function () {
-    //         var itemId = $(this).data("item-id");
-
-    //         // Populate the drawer with the retrieved item information
-    //         $("#edit-item-id").val(itemId);
-
-    //     });
-    // });
     document.addEventListener('DOMContentLoaded', function () {
         const editButtons = document.querySelectorAll('.edit-button');
         const editDrawerFormContainer = document.getElementById('edit-drawer-form-container');
-
-
-        // const options = {
-        //     placement: 'right',
-        //     backdrop: true,
-        //     bodyScrolling: false,
-        //     edge: false,
-        //     edgeOffset: '',
-        //     backdropClasses:
-        //         'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30',
-        //     onHide: () => {
-        //         console.log('drawer is hidden');
-        //     },
-        //     onShow: () => {
-        //         console.log('drawer is shown');
-        //     },
-        //     onToggle: () => {
-        //         console.log('drawer has been toggled');
-        //     },
-        // };
 
         editButtons.forEach(function (button) {
             button.addEventListener('click', function () {
@@ -358,14 +392,88 @@ Inventory
                     .then(data => {
                         // Render the edit drawer content
                         editDrawerFormContainer.innerHTML = data;
-                        // const $targetEl = document.getElementById('edit_item');
-                        // const myDrawer = new Drawer($targetEl, options);
-                        // myDrawer.show();
-                    })
-                    ;
-
+                    });
             });
         });
     });
 </script>
+
+<!--script for the search bar-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchBar = document.getElementById('table-search');
+        searchBar.addEventListener('input', function (event) {
+            const searchText = event.target.value.toLowerCase();
+            const items = document.querySelectorAll('#item-row');
+            items.forEach(function (item) {
+                const itemName = item.querySelector('#name').textContent.toLowerCase();
+                const itemColor = item.querySelector('#color').textContent.toLowerCase();
+                const itemProductclass = item.querySelector('#productclass').textContent.toLowerCase();
+                if (itemName.includes(searchText) || itemColor.includes(searchText) || itemProductclass.includes(searchText)) {
+                    item.style.display = 'table-row'; // Display as table row if it matches
+                } else {
+                    item.style.display = 'none'; // Hide if it doesn't match
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Script for handling checkboxes -->
+<script>
+    //pdfTableBody
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const headerCheckbox = document.getElementById("checkbox-all-search");
+        const rowCheckboxes = document.querySelectorAll("tbody input[type='checkbox'][name='checkbox_item']");
+
+        const checkedItemIds = [];
+        headerCheckbox.addEventListener("change", function () {
+            
+            rowCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = headerCheckbox.checked;
+            });
+
+            if (headerCheckbox.checked) {
+                rowCheckboxes.forEach(function (checkbox) {
+                    if (checkbox.checked) {
+                        const itemId = checkbox.value;
+                        checkedItemIds.push(itemId);
+                    }
+                });
+            }
+        });
+
+        rowCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener("change", function () {
+                rowCheckboxes.forEach(function (checkbox) {
+                    if (checkbox.checked) {
+                        const itemId = checkbox.value;
+                        checkedItemIds.push(itemId);
+                    }
+                });
+            });
+        });
+
+        
+
+
+        const createPdfButton = document.getElementById('create_pdfButton');
+        const pdfFormContainer = document.getElementById('pdfTableBody');
+
+        
+            createPdfButton.addEventListener('click', function () {
+                // Fetch the edit drawer content using AJAX
+                let idsString = checkedItemIds.join('/');
+                fetch(`/get_pdf_items/${idsString}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Render the edit drawer content
+                       pdfFormContainer.innerHTML = data;
+                    });
+            });
+        
+    });
+</script>
+
 {% endblock %}

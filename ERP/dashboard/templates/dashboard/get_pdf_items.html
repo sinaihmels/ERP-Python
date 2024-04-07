@@ -1,0 +1,21 @@
+<div>
+
+    <p>{{items}}</p>
+    {% for item in items %}
+
+    <tr
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700">
+        <td class="p-4">
+            <img src="{{ item.image.url }}" class="w-16 md:w-32 max-w-full max-h-full" alt="{{ item.description }}">
+        </td>
+        <td class="px-6 py-4" id="name_for_pdf">
+            {{ item.name }}
+        </td>
+        <td class="px-6 py-4" id="amount_for_pdf">
+            {{ item.amount_instock }}
+        </td>
+        <td>Delete</td>
+    </tr>
+    {% endfor %}
+
+</div>

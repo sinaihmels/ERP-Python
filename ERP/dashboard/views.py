@@ -3,6 +3,7 @@ from .models import ProductClass, Item, Color
 from .forms import CreateItemForm
 from django.template.loader import render_to_string 
 from django.utils.datastructures import MultiValueDictKeyError
+from django.http import JsonResponse
 
 # Create your views here.
 def inventory(request):
@@ -13,6 +14,8 @@ def inventory(request):
         return render(request, "dashboard/inventory.html", {"items": items, "classes": classes, "color_choices": color_choices})
     
     elif request.method == "POST": 
+
+
         if "add_new_product" in request.POST:
             # a new item was added to the inventory
             # do I need to verify the input as the fields are all required on the front end
@@ -69,6 +72,8 @@ def inventory(request):
             old_item.save()
             return redirect("dashboard:inventory")
         
+
+    
         elif "delete_product" in request.POST:
             # a delete button for an item was pressed
             item_id = request.POST.get("delete_product")
@@ -79,7 +84,6 @@ def inventory(request):
             except Item.DoesNotExist:
                 return HttpResponse("Item not found", status=400)
 
-            
 
 
 
@@ -106,3 +110,12 @@ def get_edit_drawer(request, item_id):
     context = {'item_to_be_edited': item_to_be_edited,"classes": classes, "item_class_id": item_class_id,"color_choices": color_choices}
     edit_drawer_content = render_to_string('dashboard/edit_drawer.html', context)
     return HttpResponse(edit_drawer_content)
+
+def get_pdf_items(request, item_ids):
+    id_list = [int(x) for x in item_ids.split('/') if x.isdigit()]
+    print(id_list)
+    print(item_ids)
+    items = Item.objects.filter(pk__in=id_list)
+    context = {'items': items}
+    get_pdf_items_content = render_to_string('dashboard/get_pdf_items.html', context)
+    return HttpResponse(get_pdf_items_content)

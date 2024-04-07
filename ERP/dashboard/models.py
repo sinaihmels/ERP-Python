@@ -38,7 +38,7 @@ class Item(models.Model):
     name = models.CharField(max_length=100, default="name") # TODO: Maybe remove default="name"????
 
     def __str__(self):
-        return self.description
+        return self.name
     
 class Color(models.Model):
     id = models.BigIntegerField().primary_key=True
