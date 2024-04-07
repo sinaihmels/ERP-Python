@@ -464,8 +464,8 @@ Inventory
         
             createPdfButton.addEventListener('click', function () {
                 // Fetch the edit drawer content using AJAX
-                let idsString = checkedItemIds.join('/');
-                fetch(`/get_pdf_items/${idsString}`)
+                let idsString = checkedItemIds.join('+');
+                fetch(`/get_pdf_items?ids=${idsString}`)
                     .then(response => response.text())
                     .then(data => {
                         // Render the edit drawer content
