@@ -1152,6 +1152,18 @@ input:checked + .toggle-bg {
   top: 0.625rem;
 }
 
+.top-5 {
+  top: 1.25rem;
+}
+
+.right-5 {
+  right: 1.25rem;
+}
+
+.left-5 {
+  left: 1.25rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -1436,6 +1448,10 @@ input:checked + .toggle-bg {
 
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
 }
 
 .flex-shrink {
