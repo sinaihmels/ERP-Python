@@ -100,24 +100,7 @@ Inventory
                     </thead>
                         <tbody id="pdfTableBody"> 
                             <!-- Table body where rows will be dynamically added -->
-                            {% for item_id in checkedItemIds %}
-                            {% for i in items %}
-                                {% if item_id == i.id %}
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700">
-                                        <td class="p-4">
-                                            <img src="{{ i.image.url }}" class="w-16 md:w-32 max-w-full max-h-full" alt="{{ i.description }}">
-                                        </td>
-                                        <td class="px-6 py-4" id="name_for_pdf">
-                                            {{ i.name }}
-                                        </td>
-                                        <td class="px-6 py-4" id="amount_for_pdf">
-                                            {{ i.amount_instock }}
-                                        </td>
-                                        <td>Delete</td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        {% endfor %}
+                            
                         </tbody>
                     </table>
     
@@ -436,15 +419,17 @@ Inventory
     });
 </script>
 
-
 <!-- Script for handling checkboxes -->
 <script>
+    //pdfTableBody
+
     document.addEventListener("DOMContentLoaded", function () {
         const headerCheckbox = document.getElementById("checkbox-all-search");
         const rowCheckboxes = document.querySelectorAll("tbody input[type='checkbox'][name='checkbox_item']");
 
+        const checkedItemIds = [];
         headerCheckbox.addEventListener("change", function () {
-            const checkedItemIds = [];
+            
             rowCheckboxes.forEach(function (checkbox) {
                 checkbox.checked = headerCheckbox.checked;
             });
@@ -457,27 +442,37 @@ Inventory
                     }
                 });
             }
-            console.log(checkedItemIds);
-            sendCheckedItemIds(checkedItemIds); // Sending checked item IDs
         });
 
         rowCheckboxes.forEach(function (checkbox) {
             checkbox.addEventListener("change", function () {
-                const checkedItemIds = [];
                 rowCheckboxes.forEach(function (checkbox) {
                     if (checkbox.checked) {
                         const itemId = checkbox.value;
                         checkedItemIds.push(itemId);
                     }
                 });
-                console.log(checkedItemIds);
-                sendCheckedItemIds(checkedItemIds); // Sending checked item IDs
             });
         });
 
-        function sendCheckedItemIds(checkedItemIds) {
-            return checkedItemIds;
-        }
+        
+
+
+        const createPdfButton = document.getElementById('create_pdfButton');
+        const pdfFormContainer = document.getElementById('pdfTableBody');
+
+        
+            createPdfButton.addEventListener('click', function () {
+                // Fetch the edit drawer content using AJAX
+                let idsString = checkedItemIds.join('/');
+                fetch(`/get_pdf_items/${idsString}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Render the edit drawer content
+                       pdfFormContainer.innerHTML = data;
+                    });
+            });
+        
     });
 </script>
 

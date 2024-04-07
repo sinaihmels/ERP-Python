@@ -111,3 +111,11 @@ def get_edit_drawer(request, item_id):
     edit_drawer_content = render_to_string('dashboard/edit_drawer.html', context)
     return HttpResponse(edit_drawer_content)
 
+def get_pdf_items(request, item_ids):
+    id_list = [int(x) for x in item_ids.split('/') if x.isdigit()]
+    print(id_list)
+    print(item_ids)
+    items = Item.objects.filter(pk__in=id_list)
+    context = {'items': items}
+    get_pdf_items_content = render_to_string('dashboard/get_pdf_items.html', context)
+    return HttpResponse(get_pdf_items_content)
