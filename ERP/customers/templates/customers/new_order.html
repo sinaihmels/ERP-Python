@@ -1,4 +1,3 @@
-
 {% extends '_base.html' %}
 
 {% block title %}
@@ -10,8 +9,7 @@ customers
 
 
 <!-- Add new order drawer component -->
-<div id="Add_new_order"
-    class="flex-auto">
+<div id="Add_new_order" class="flex-auto">
     <h2 class="inline-flex items-center mb-6 font-semibold text-gray-500 dark:text-gray-400">
         Add a new order
     </h2>
@@ -20,79 +18,146 @@ customers
         {% csrf_token %}
         <h2>Customer information</h2>
         <h3>Choose the customer</h3>
-        <select name="customers_in_database" id="customers_in_database" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
+        <select name="customers_in_database" id="customers_in_database"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
         dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-        <option selected="{{customer.name}}">Select the customer</option>
-        {% for customer in customers %}
-        <option value="{{customer.id}}">{{customer.name}}</option>
-        {% endfor %}
+            <option selected="{{customer.name}}">Select the customer</option>
+            {% for customer in customers %}
+            <option value="{{customer.id}}">{{customer.name}}</option>
+            {% endfor %}
+        </select>
         <p></p>
-        <div class="space-y-4">
-            <div>
-                <label for="customer_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>
-                <input type="text" name="customer_name" id="customer_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type the customers name" required="" value="{{customer.name}}">
-            </div>
-            <div>
-                <label for="customer_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                <input type="text" name="customer_address" id="customer_address"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type the customers country" required="" value="{{customer.address}}">
-            </div>
-         
-      
-            <div>
-                <label for="customer_phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                <input type="number" name="customer_phone" id="customer_phone"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
-                block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type the customers phone number" value="{{customer.phone}}">
-            </div>
-            <div>
-                <label for="customer_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                <input type="text" name="customer_email" id="customer_email"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
-                block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type the customers email" required="" value="{{customer.email}}">
-            </div>
 
-            
-            <div class="bottom-0 left-0 flex justify-center w-full pb-4 space-x-4 md:px-4 md:absolute">
-                <button type="submit" name="add_new_order" class="inline-flex w-full justify-center text-gray-500 items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 
+        <div id="customer_info_container">
+            <!-- Customer information will be displayed here -->
+        </div>
+
+        <button type="button" class="text-black" id="showDeliveryAddressButton">Choose different delivery
+            address</button>
+
+        <div id="deliveryAddressContainer">
+
+            <label for="delivery_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                aria-hidden="true"></label>
+            <input type="hidden" name="delivery_address" id="delivery_address"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Type the delivery address" aria-hidden="true">
+        </div>
+        <h1>Choose the products</h1>
+        <!--This is the table created for the items within the database-->
+        <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400 ">
+            <thead class="text-s text-indigo-900 uppercase bg-gray-300">
+                <tr>
+                    <th scope="col" class="p-4">
+                        <div class="flex items-center">
+                            <input id="checkbox-add-all" type="checkbox" id="add_all_checkbox"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600
+                         dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="checkbox-add-all" class="sr-only">checkbox</label>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Image
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Item name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Price
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Amount
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700"
+                    id="item-row">
+                    <td class="w-4 p-4">
+                        <div class="flex items-center">
+                            <input id="checkbox_add_one" type="checkbox" name="checkbox_add_one" value="{{item.id}}"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600
+                         dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 inventory-checkbox">
+                            <label for="checkbox_add_one" class="sr-only">checkbox</label>
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <img src="{{item.image.url}}" class="w-16 md:w-32 max-w-full max-h-full" alt="{{item.description}}">
+                    </td>
+                    <td class="px-6 py-4" id="name">
+                        {{item.name}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{item.price}}€
+                    </td>
+                    <td class="px-6 py-4">
+                        ?
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div>
+            <button type="submit" name="add_new_order" class="inline-flex w-full justify-center text-gray-500 items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 
                 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white 
                 dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                    Add order
-                </button>
-            </div>
+                Add order
+            </button>
         </div>
+
     </form>
 </div>
 
+{% endblock %}
+
+{% block javascript %}
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var selectElement = document.getElementById("customers_in_database");
-      var fullNameInput = document.getElementById("customer_name");
-      var addressInput = document.getElementById("customer_address");
-      var phoneInput = document.getElementById("customer_phone");
-      var emailInput = document.getElementById("customer_email");
-    
-      selectElement.addEventListener("change", function() {
-        var selectedOption = selectElement.value;
-        const customer_id = selectedOption
-        
-        // Fetch customer data based on the selected option
-        fetch(`/get_customer_info/${customer_id}/`)
-          .then(response => response.text())
-          .then(data => {
-            // Populate the input fields with customer data
-            customerdata.innerHTML = data
-          })
-          .catch(error => {
-            console.error("Error fetching customer data:", error);
-          });
-      });
+    document.addEventListener("DOMContentLoaded", function () {
+        const showDeliveryAddressButton = document.getElementById('showDeliveryAddressButton');
+        const deliveryAddressContainer = document.getElementById('deliveryAddressContainer');
+        const label = document.querySelector('label[for="delivery_address"]');
+        const input = document.getElementById('delivery_address');
+
+        // Hide the delivery address container and set aria-hidden attributes initially
+        deliveryAddressContainer.style.display = 'none';
+        label.setAttribute('aria-hidden', 'true');
+        input.setAttribute('type', 'true');
+
+        showDeliveryAddressButton.addEventListener('click', function () {
+            label.setAttribute('aria-hidden', 'false');
+            input.setAttribute('type', '');
+            deliveryAddressContainer.style.display = 'block';
+        });
     });
-    </script>
-    
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectElement = document.getElementById("customers_in_database");
+        const fullNameInput = document.getElementById("customer_name");
+        const addressInput = document.getElementById("customer_address");
+        const phoneInput = document.getElementById("customer_phone");
+        const emailInput = document.getElementById("customer_email");
+
+        selectElement.addEventListener("change", function () {
+            const selectedOption = selectElement.value;
+            const customer_id = selectedOption;
+
+            // Fetch customer data based on the selected option
+            fetch(`/customers/get_customer_info/${customer_id}/`)
+                .then(response => response.json())
+                .then(data => {
+                    // Replace the content of customer information fields with the received data
+                    const customerInfoContainer = document.getElementById("customer_info_container");
+                    customerInfoContainer.innerHTML = data.customer_info_html;
+                })
+                .catch(error => {
+                    console.error("Error fetching customer data:", error);
+                });
+        });
+    });
+</script>
+
+
 {% endblock %}

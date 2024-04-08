@@ -1152,18 +1152,6 @@ input:checked + .toggle-bg {
   top: 0.625rem;
 }
 
-.top-5 {
-  top: 1.25rem;
-}
-
-.right-5 {
-  right: 1.25rem;
-}
-
-.left-5 {
-  left: 1.25rem;
-}
-
 .isolate {
   isolation: isolate;
 }
@@ -1188,6 +1176,10 @@ input:checked + .toggle-bg {
   z-index: 50;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1196,6 +1188,16 @@ input:checked + .toggle-bg {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.my-1\.5 {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
 }
 
 .-ml-1 {
@@ -2060,6 +2062,11 @@ input:checked + .toggle-bg {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -2455,6 +2462,26 @@ input:checked + .toggle-bg {
 
 .\[user\:passwd\@\] {
   user: passwd@;
+}
+
+.placeholder\:my-1::-moz-placeholder {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.placeholder\:my-1::placeholder {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.placeholder\:my-1\.5::-moz-placeholder {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
+.placeholder\:my-1\.5::placeholder {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
 }
 
 .hover\:border-gray-300:hover {
