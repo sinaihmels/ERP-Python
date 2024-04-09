@@ -106,7 +106,7 @@ customers
                         {{item.price}}€
                     </td>
                     <td class="amount px-6 py-4">
-                        <input class="amount_input" disabled type="number" name="amount">
+                        <input class="amount_input" disabled type="number" name="amount" min="1">
                     </td>
                     <td class="productclass hidden">{{item.productclass}}</td>
                     <td class="color hidden">{{item.color}}</td>
@@ -200,19 +200,29 @@ customers
     document.addEventListener("DOMContentLoaded", function () {
         const headerCheckbox = document.getElementById("add_all_checkbox");
         const rowCheckboxes = document.querySelectorAll(".item_row_checkbox");
+        const amountInputs = document.querySelectorAll(".amount_input");
 
         headerCheckbox.addEventListener("change", function () {
+            // Set the state of all row checkboxes to match the header checkbox
             rowCheckboxes.forEach(function (checkbox) {
                 checkbox.checked = headerCheckbox.checked;
             });
 
+            // Enable or disable all amount input fields based on the state of the header checkbox
+            amountInputs.forEach(function (input) {
+                input.disabled = !headerCheckbox.checked;
+            });
         });
 
         rowCheckboxes.forEach(function (checkbox) {
             checkbox.addEventListener("change", function () {
-               var item_row = this.closest(".item_row");
-               var amount_input = item_row.querySelector(".amount_input");
-               amount_input.disabled = !this.checked;
+                var item_row = this.closest(".item_row");
+                var amount_input = item_row.querySelector(".amount_input");
+                if (this.checked) {
+                    amount_input.disabled = false; // Enable the input field if the checkbox is checked
+                } else {
+                    amount_input.disabled = true; // Disable the input field if the checkbox is unchecked
+                }
             });
         });
     });

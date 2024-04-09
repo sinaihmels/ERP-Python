@@ -7,10 +7,34 @@ from django.template.loader import render_to_string
 
 # Create your views here.
 def customers(request):
-    orders = Order.objects.all()
-    customers = Customer.objects.all()
-    return render(request, "customers/customers.html", {"orders": orders, "customers": customers})
+    if request.method == "GET":
+        orders = Order.objects.all()
+        customers = Customer.objects.all()
+        return render(request, "customers/customers.html", {"orders": orders, "customers": customers})
+    elif request.method == "POST":
+        if "edit_order_drawer" in request.POST:
+            # the data of an order was edited
+            form_data = request.POST
+            list_of_order_ids = form_data.getlist("order_item_id")
+            list_of_item_ids = form_data.getlist("order_item_item_id")
+            list_amount_of_products = form_data.getlist("order_amount")
+            for i in range(len(list_of_order_ids)):
+                change_this_orderitem = OrderItem.objects.get(pk=list_of_order_ids[i])
+                change_this_orderitem.amount=list_amount_of_products[i]
+                change_this_orderitem.save()
+            return redirect("customers:customers")
 
+        elif "delete_order" in request.POST:
+            # a delete button for an item was pressed
+            order_id = request.POST.get("delete_order")
+            try: 
+                order_to_delete = Order.objects.get(pk=order_id)
+                order_to_delete.delete()
+                return redirect("customers:customers")
+            except Item.DoesNotExist:
+                return HttpResponse("Item not found", status=400)
+
+        
 def new_order(request):    
     if request.method == "GET":
         customers = Customer.objects.all()
@@ -58,4 +82,12 @@ def get_details_drawer(request, order_id):
     items = Item.objects.all()
     context = {"order_to_be_detailed": order_to_be_detailed, "order_items": order_items, "items": items}
     details_drawer_content = render_to_string('customers/details_drawer.html', context)
+    return HttpResponse(details_drawer_content)
+
+def get_edit_order_drawer(request, order_id):
+    order_to_be_edited = Order.objects.get(pk=order_id)
+    order_items = OrderItem.objects.filter(order=order_to_be_edited)
+    items = Item.objects.all()
+    context = {"order_to_be_edited": order_to_be_edited, "order_items": order_items, "items": items}
+    details_drawer_content = render_to_string('customers/edit_order_drawer.html', context)
     return HttpResponse(details_drawer_content)

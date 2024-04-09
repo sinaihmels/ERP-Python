@@ -1,10 +1,8 @@
 <!-- details item drawer component -->
+<div>
+    <input type="hidden" id="details_item_id" name="details_item_id" value="">
 
-<input type="hidden" id="details_item_id" name="details_item_id" value="">
-<div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 w-full max-w-2xl h-full md:h-auto">
-    <h1> here are the details </h1>
-    {{order_to_be_detailed}}
-    <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400">
+    <table class="text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400">
         <thead class="text-s text-indigo-900 uppercase bg-gray-300">
             <th scope="col" class="px-6 py-3">
                 Image
@@ -19,25 +17,25 @@
                 Price for one
             </th>
         </thead>
-
         {% for order in order_items %}
         <tr
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700">
+            class="row bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700">
             <td class="p-4">
                 <img src="{{order.item.image.url}}" class="w-16 md:w-32 max-w-full max-h-full"
                     alt="{{ order.item.description }}">
             </td>
-            <td class="px-6 py-4" id="name_for_pdf">
+            <td class="order_item px-6 py-4" value="{{order.item}}">
                 {{ order.item }}
             </td>
-            <td class="px-6 py-4" id="name_for_pdf">
+            <td class="item_amount px-6 py-4" value="{{order.amount}}">
                 {{ order.amount }}
             </td>
-            <td class="px-6 py-4" id="name_for_pdf">
-                {{ order.item.price }}€
+            <td class="price_for_item px-6 py-4" value="{{order.item.price}}">
+                {{ order.item.price }}
             </td>
         </tr>
-
-
         {% endfor %}
+
+    </table>
+    <p id="total_price"></p>
 </div>
