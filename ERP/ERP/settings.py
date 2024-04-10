@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig', # setting up the users app
     'django_browser_reload',
     'compressor',
+    'customers.apps.CustomersConfig', # setting up the customers app
+    'orders.apps.OrdersConfig', # setting up the orders app
+
 ]
 
 
@@ -129,6 +132,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -144,4 +150,11 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 
 COMPRESS_ENABLED = True
 
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+STATIC_ROOT = os.path.join(BASE_DIR,"static_root")
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    
+    'compressor.finders.CompressorFinder',
+    ]

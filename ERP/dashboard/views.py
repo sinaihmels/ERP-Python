@@ -87,8 +87,34 @@ def inventory(request):
 
 
 
-def dashboard(response):
-    return render(response, "dashboard/dashboard.html", {})
+def dashboard(request):
+
+    return render(request, "dashboard/dashboard.html", {})
+
+def datavisualisation(request):
+    all_items = Item.objects.all() 
+    visualinventory = {}
+
+    def get_productclass(item):
+        return item.productclass
+    
+    item_productclass_list = list(map(get_productclass, all_items))
+
+    def get_productclass_instock_amount(productclass):
+        amount=0
+        filtered_by_productclass=all_items.filter(productclass=productclass)
+        for item in filtered_by_productclass:
+            amount+=item.amount_instock
+        return amount
+
+    for i in all_items:
+        for y in item_productclass_list:
+            visualinventory[y]=get_productclass_instock_amount(y)
+
+    return JsonResponse({"visualinventory": visualinventory}, safe=False)
+
+def stats_view(request):
+    return render(request, "dashboard/stats.html")
 
 def create_item_view(request):
     if request.method == "POST": 
@@ -110,13 +136,3 @@ def get_edit_drawer(request, item_id):
     context = {'item_to_be_edited': item_to_be_edited,"classes": classes, "item_class_id": item_class_id,"color_choices": color_choices}
     edit_drawer_content = render_to_string('dashboard/edit_drawer.html', context)
     return HttpResponse(edit_drawer_content)
-
-def get_pdf_items(request):
-    item_ids = request.GET['ids']
-    id_list = [int(x) for x in item_ids.split(' ') if x.isdigit()]
-    print(id_list)
-    print(item_ids)
-    items = Item.objects.filter(pk__in=id_list)
-    context = {'items': items}
-    get_pdf_items_content = render_to_string('dashboard/get_pdf_items.html', context)
-    return HttpResponse(get_pdf_items_content)

@@ -25,6 +25,8 @@ urlpatterns = [
     path('users/', include('users.urls')), # we link to the app register
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('', include('customers.urls')),
+    path('', include('orders.urls')),
 ]
 
 if settings.DEBUG:

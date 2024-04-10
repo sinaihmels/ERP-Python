@@ -1,0 +1,231 @@
+{% extends '_base.html' %}
+
+{% block title %}
+customers
+{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Add new order drawer component -->
+<div id="Add_new_order" class="flex-auto">
+    <h2 class="inline-flex items-center mb-6 font-semibold text-gray-500 dark:text-gray-400">
+        Add a new order
+    </h2>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Customer information</h2>
+        <button type="button">or add new customer</button>
+        <h3>Choose the customer</h3>
+        <select name="customers_in_database" id="customers_in_database"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
+        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required aria-placeholder="select a customer">
+            {% for customer in customers %}
+            <option value="{{customer.id}}">{{customer.name}}</option>
+            {% endfor %}
+        </select>
+        <p></p>
+
+        <div id="customer_info_container">
+            <!-- Customer information will be displayed here -->
+        </div>
+
+        <button type="button" class="text-black" id="showDeliveryAddressButton">Choose different delivery
+            address</button>
+
+        <div id="deliveryAddressContainer">
+
+            <label for="delivery_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                aria-hidden="true"></label>
+            <input type="hidden" name="delivery_address" id="delivery_address"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Type the delivery address" aria-hidden="true">
+        </div>
+        <h1>Choose the products</h1>
+                <!--This is the search bar-->
+                <div class="pb-4 bg-indigo-50 dark:bg-gray-900">
+                    <label for="table-search" class="sr-only">Search</label>
+                    <div class="relative mt-1">
+                        <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="text" id="table-search" name="searched"
+                            class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search for items">
+                    </div>
+                </div>
+        <!--This is the table created for the items within the database-->
+        <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400 ">
+            <thead class="text-s text-indigo-900 uppercase bg-gray-300">
+                <tr>
+                    <th scope="col" class="p-4">
+                        <div class="flex items-center">
+                            <input id="add_all_checkbox" type="checkbox"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600
+                         dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Image
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Item name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Price
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Amount
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr class="item_row bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700">
+                    <td class="w-4 p-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" name="item_row_checkbox" value="{{item.id}}"
+                                class="item_row_checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600
+                         dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 inventory-checkbox">
+                            <label for="item_row_checkbox" class="sr-only">checkbox</label>
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <img src="{{item.image.url}}" class="w-16 md:w-32 max-w-full max-h-full" alt="{{item.description}}">
+                    </td>
+                    <td class="name px-6 py-4">
+                        {{item.name}}
+                    </td>
+                    <td class="price px-6 py-4">
+                        {{item.price}}€
+                    </td>
+                    <td class="amount px-6 py-4">
+                        <input class="amount_input" disabled type="number" name="amount" min="1">
+                    </td>
+                    <td class="productclass hidden">{{item.productclass}}</td>
+                    <td class="color hidden">{{item.color}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div>
+            <button type="submit" name="add_new_order" class="inline-flex w-full justify-center text-gray-500 items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 
+                rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white 
+                dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                Add order
+            </button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const showDeliveryAddressButton = document.getElementById('showDeliveryAddressButton');
+        const deliveryAddressContainer = document.getElementById('deliveryAddressContainer');
+        const label = document.querySelector('label[for="delivery_address"]');
+        const input = document.getElementById('delivery_address');
+
+        // Hide the delivery address container and set aria-hidden attributes initially
+        deliveryAddressContainer.style.display = 'none';
+        label.setAttribute('aria-hidden', 'true');
+        input.setAttribute('type', 'true');
+
+        showDeliveryAddressButton.addEventListener('click', function () {
+            label.setAttribute('aria-hidden', 'false');
+            input.setAttribute('type', '');
+            deliveryAddressContainer.style.display = 'block';
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectElement = document.getElementById("customers_in_database");
+        const fullNameInput = document.getElementById("customer_name");
+        const addressInput = document.getElementById("customer_address");
+        const phoneInput = document.getElementById("customer_phone");
+        const emailInput = document.getElementById("customer_email");
+
+        selectElement.addEventListener("change", function () {
+            const selectedOption = selectElement.value;
+            const customer_id = selectedOption;
+
+            // Fetch customer data based on the selected option
+            fetch(`/customers/get_customer_info/${customer_id}/`)
+                .then(response => response.json())
+                .then(data => {
+                    // Replace the content of customer information fields with the received data
+                    const customerInfoContainer = document.getElementById("customer_info_container");
+                    customerInfoContainer.innerHTML = data.customer_info_html;
+                })
+                .catch(error => {
+                    console.error("Error fetching customer data:", error);
+                });
+        });
+    });
+</script>
+<!--script for the search bar-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchBar = document.getElementById('table-search');
+        searchBar.addEventListener('input', function (event) {
+            const searchText = event.target.value.toLowerCase();
+            const items = document.querySelectorAll('item_row');
+            items.forEach(function (item) {
+                const itemName = item.querySelector('name').textContent.toLowerCase();
+                const itemColor = item.querySelector('color').textContent.toLowerCase();
+                const itemProductclass = item.querySelector('productclass').textContent.toLowerCase();
+                if (itemName.includes(searchText) || itemColor.includes(searchText) || itemProductclass.includes(searchText)) {
+                    item.style.display = 'table-row'; // Display as table row if it matches
+                } else {
+                    item.style.display = 'none'; // Hide if it doesn't match
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Script for handling checkboxes -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const headerCheckbox = document.getElementById("add_all_checkbox");
+        const rowCheckboxes = document.querySelectorAll(".item_row_checkbox");
+        const amountInputs = document.querySelectorAll(".amount_input");
+
+        headerCheckbox.addEventListener("change", function () {
+            // Set the state of all row checkboxes to match the header checkbox
+            rowCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = headerCheckbox.checked;
+            });
+
+            // Enable or disable all amount input fields based on the state of the header checkbox
+            amountInputs.forEach(function (input) {
+                input.disabled = !headerCheckbox.checked;
+            });
+        });
+
+        rowCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener("change", function () {
+                var item_row = this.closest(".item_row");
+                var amount_input = item_row.querySelector(".amount_input");
+                if (this.checked) {
+                    amount_input.disabled = false; // Enable the input field if the checkbox is checked
+                } else {
+                    amount_input.disabled = true; // Disable the input field if the checkbox is unchecked
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}
