@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig', # setting up the users app
     'django_browser_reload',
     'compressor',
-    'customers.apps.CustomersConfig', # setting up the users app
+    'customers.apps.CustomersConfig', # setting up the customers app
+    'orders.apps.OrdersConfig', # setting up the orders app
+
 ]
 
 
