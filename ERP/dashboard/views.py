@@ -91,27 +91,7 @@ def dashboard(request):
 
     return render(request, "dashboard/dashboard.html", {})
 
-def datavisualisation(request):
-    all_items = Item.objects.all() 
-    visualinventory = {}
 
-    def get_productclass(item):
-        return item.productclass
-    
-    item_productclass_list = list(map(get_productclass, all_items))
-
-    def get_productclass_instock_amount(productclass):
-        amount=0
-        filtered_by_productclass=all_items.filter(productclass=productclass)
-        for item in filtered_by_productclass:
-            amount+=item.amount_instock
-        return amount
-
-    for i in all_items:
-        for y in item_productclass_list:
-            visualinventory[y]=get_productclass_instock_amount(y)
-
-    return JsonResponse({"visualinventory": visualinventory}, safe=False)
 
 def stats_view(request):
     return render(request, "dashboard/stats.html")

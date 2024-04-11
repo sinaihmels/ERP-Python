@@ -7,6 +7,5 @@ urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('get_edit_drawer/<int:item_id>/', views.get_edit_drawer, name='get_edit_drawer'),
     path('create_item/', views.create_item_view, name='create_item'),
-    path("datavisualisation/", views.datavisualisation, name="datavisualisation"),
     path("stats_view", views.stats_view, name="stats_view"),
 ]
