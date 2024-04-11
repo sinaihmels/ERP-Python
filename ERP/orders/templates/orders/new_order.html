@@ -16,12 +16,10 @@ customers
 
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <h2>Customer information</h2>
-        <button type="button">or add new customer</button>
         <h3>Choose the customer</h3>
         <select name="customers_in_database" id="customers_in_database"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
-        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required aria-placeholder="select a customer">
+        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 my-4" required aria-placeholder="select a customer">
             {% for customer in customers %}
             <option value="{{customer.id}}">{{customer.name}}</option>
             {% endfor %}
@@ -32,7 +30,8 @@ customers
             <!-- Customer information will be displayed here -->
         </div>
 
-        <button type="button" class="text-black" id="showDeliveryAddressButton">Choose different delivery
+        <button type="button" class="text-white bg-indigo-700 hover:bg-gray-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
+        dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 p-9" id="showDeliveryAddressButton">Choose different delivery
             address</button>
 
         <div id="deliveryAddressContainer">

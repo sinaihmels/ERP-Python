@@ -15,6 +15,7 @@ def orders(request):
         if "details_order" in request.POST:
             # the data of an order was edited
             form_data = request.POST
+            print(form_data)
             list_of_order_item_ids = form_data.getlist("order_item_id")
             list_amount_of_products = form_data.getlist("order_amount")
             list_removed_products = form_data.getlist("removed")
@@ -25,6 +26,11 @@ def orders(request):
                 else: 
                     change_this_orderitem.amount=list_amount_of_products[i]
                     change_this_orderitem.save()
+            id_of_order_to_change = Order.objects.get(pk=(form_data.get("details_order")))
+            new_status_id = form_data.get("status")
+            new_status_object = Status.objects.get(pk=new_status_id)
+            id_of_order_to_change.status = new_status_object
+            id_of_order_to_change.save()
             return redirect("orders:orders")
 
         elif "delete_order" in request.POST:
@@ -60,9 +66,6 @@ def new_order(request):
         list_amounts_of_products = form_data.getlist("amount")
         # get the status object 
         status_object=Status.objects.get(pk=1)
-                #item_id_amount = {}
-        #for i in range(len(list_item_ids)):
-            #item_id_amount[list_item_ids[i]]= list_amounts_of_products[i]
         new_order = Order(customer=customer_object, delivery_address=address, status=status_object)
         new_order.save()
         # create OrderItems
@@ -70,6 +73,12 @@ def new_order(request):
             item_to_add = Item.objects.get(pk=list_item_ids[i])
             new_order_item = OrderItem(order=new_order, item=item_to_add, amount=list_amounts_of_products[i])
             new_order_item.save()
+        # update the amount of inventory in the database
+        for i in range(len(list_item_ids)):
+            item_to_change = Item.objects.get(pk=list_item_ids[i])
+            new_amount = int(item_to_change.amount_instock) - int(list_amounts_of_products[i])
+            item_to_change.amount_instock = new_amount
+            item_to_change.save()
         return redirect("orders:orders")
 
 
@@ -83,6 +92,7 @@ def get_details_drawer(request, order_id):
     order_to_be_detailed = Order.objects.get(pk=order_id)
     order_items = OrderItem.objects.filter(order=order_to_be_detailed)
     items = Item.objects.all()
-    context = {"order_to_be_detailed": order_to_be_detailed, "order_items": order_items, "items": items}
+    all_status = Status.objects.all()
+    context = {"order_to_be_detailed": order_to_be_detailed, "order_items": order_items, "items": items, "all_status": all_status}
     details_drawer_content = render_to_string('orders/details_drawer.html', context)
     return HttpResponse(details_drawer_content)

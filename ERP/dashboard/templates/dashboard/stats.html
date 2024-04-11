@@ -114,7 +114,7 @@ Inventory
 
 const getChartOptions = () => {
   return {
-    series: [35.1, 23.5, 2.4, 5.4],
+    series: [25,25,25,25], //numbers that are displayed
     colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694"],
     chart: {
       height: 320,
@@ -209,20 +209,20 @@ if (document.getElementById("donut-chart") && typeof ApexCharts !== 'undefined')
       if (checkbox.checked) {
           switch(checkbox.value) {
             case 'desktop':
-              chart.updateSeries([15.1, 22.5, 4.4, 8.4]);
+              chart.updateSeries([15.1, 22.5, 4.4, 8.4]); //updates the amounts based in the checkboxes
               break;
             case 'tablet':
-              chart.updateSeries([25.1, 26.5, 1.4, 3.4]);
+              chart.updateSeries([25.1, 26.5, 1.4, 3.4]); //updates the amounts based in the checkboxes
               break;
             case 'mobile':
-              chart.updateSeries([45.1, 27.5, 8.4, 2.4]);
+              chart.updateSeries([45.1, 27.5, 8.4, 2.4]); //updates the amounts based in the checkboxes
               break;
             default:
-              chart.updateSeries([55.1, 28.5, 1.4, 5.4]);
+              chart.updateSeries([55.1, 28.5, 1.4, 5.4]); //updates the amounts based in the checkboxes
           }
 
       } else {
-          chart.updateSeries([35.1, 23.5, 2.4, 5.4]);
+          chart.updateSeries([35.1, 23.5, 2.4, 5.4]); //updates the amounts based in the checkboxes
       }
   }
 
