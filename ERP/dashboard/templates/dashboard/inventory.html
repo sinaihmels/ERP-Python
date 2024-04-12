@@ -7,7 +7,7 @@ Inventory
 {% endblock %}
 
 {% block content %}
-<div class="" name="navigation above table">
+<div class="mx-1.5" name="navigation above table">
     <div
         class="min-w-full align-middle flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
 
@@ -30,8 +30,9 @@ Inventory
 
         <!--This is the add new product button-->
         <div class="text-center">
-            <button class="text-white bg-indigo-700 hover:bg-gray-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
-            dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-drawer-show="Add_new_item"
+            <button class="inline-flex w-auto justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+            rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
+            dark:hover:bg-indigo-600 dark:focus:ring-indigo-600" data-drawer-show="Add_new_item"
                 data-drawer-target="Add_new_item" aria-controls="Add_new_item" data-drawer-placement="right"
                 type="button">
                 Add new Product
@@ -40,75 +41,10 @@ Inventory
 
     </div>
 </div>
-<!-- Main modal create_pdf-->
-<div id="create_pdf" tabindex="-1" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-        <!-- Modal content create_pdf-->
-        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-            <!-- Modal header create_pdf-->
-            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Create PDF
-                </h3>
-                <button type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-toggle="create_pdf">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body create_pdf-->
-            <form action="#">
-                <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                    <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selected
-                            products</label>
-                    </div>
-                </div>
-                <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400">
-                    <thead class="text-s text-indigo-900 uppercase bg-gray-300">
-                        <th scope="col" class="px-6 py-3">
-                            Image
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Amount
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Delete
-                        </th>
-                    </thead>
-                    <tbody id="pdfTableBody">
-                        <!-- Table body where rows will be dynamically added -->
 
-                    </tbody>
-                </table>
-
-                <button type="submit"
-                    class="text-indigo-900 inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                    <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    Create PDF
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!--This is the table created for the items within the database-->
-<table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400 ">
+<table class="mx-1.5 w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400 ">
     <thead class="text-s text-indigo-900 uppercase bg-gray-300">
         <tr>
             <th scope="col" class="p-4">
@@ -182,23 +118,25 @@ Inventory
                 {{item.description}}
             </td>
             <td class="px-6 py-4">
-                <button class="edit-button text-white bg-indigo-700 hover:bg-gray-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
-                dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button"
+                <button class="edit-button inline-flex w-auto justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+                rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
+                dark:hover:bg-indigo-600 dark:focus:ring-indigo-600" type="button"
                     data-item-id="{{item.id}}" data-drawer-show="edit_item" data-drawer-target="edit_item"
                     aria-controls="edit_item" data-drawer-placement="right">Edit</button>
             </td>
             <td class="px-6 py-4">
-                <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="text-white bg-indigo-700 hover:bg-gray-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600
-                    dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-80">Delete</button>
+                <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="inline-flex w-auto justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+                rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
+                dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">Delete</button>
             </td>
         </tr>
         <!-- Alert box for delete -->
         <div id="deleteModal" tabindex="-1" aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+            class="hidden flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
             <div class="relative p-4 w-full max-w-md h-full md:h-auto">
                 <!-- Modal content -->
-                <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                    <button type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 
+                <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-indigo-800 sm:p-5">
+                    <button type="button" class="text-indigo-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-indigo-200 hover:text-indigo-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-indigo-600 
             dark:hover:text-white" data-modal-toggle="deleteModal">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -208,17 +146,17 @@ Inventory
                         </svg>
                         <span class="sr-only">Close modal</span>
                     </button>
-                    <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true"
+                    <svg class="text-indigo-950 dark:text-indigo-950 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true"
                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                             d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                             clip-rule="evenodd"></path>
                     </svg>
-                    <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this item?</p>
+                    <p class="mb-4 text-indigo-950 dark:text-indigo-300">Are you sure you want to delete this item?</p>
                     <div class="flex justify-center items-center space-x-4">
                         <button data-modal-toggle="deleteModal" type="button"
-                            class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none 
-                focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                            class="py-2 px-3 text-sm font-medium text-indigo-950 bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 focus:ring-4 focus:outline-none 
+                focus:ring-primary-300 hover:text-indigo-900 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">
                             No, cancel
                         </button>
                         <form method="post">
@@ -240,12 +178,12 @@ Inventory
 
 <!--This is the edit item container-->
 <div id="edit_item"
-    class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800"
+    class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-indigo-800"
     tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
-    <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 dark:text-gray-400">
+    <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-indigo-950 dark:text-indigo-950">
         Edit a product</h5>
-    <button type="button" data-drawer-dismiss="edit_item" aria-controls="edit_item" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute 
-    top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+    <button type="button" data-drawer-dismiss="edit_item" aria-controls="edit_item" class="text-indigo-400 bg-transparent hover:bg-indigo-200 hover:text-indigo-900 rounded-lg text-sm p-1.5 absolute 
+    top-2.5 right-2.5 inline-flex items-center dark:hover:bg-indigo-600 dark:hover:text-white">
         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -262,12 +200,12 @@ Inventory
 
 <!-- Add new item drawer component -->
 <div id="Add_new_item"
-    class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800"
+    class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-indigo-800"
     tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
-    <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 dark:text-gray-400">
+    <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-indigo-950 dark:text-indigo-950">
         Add a new product</h5>
-    <button type="button" data-drawer-dismiss="Add_new_item" aria-controls="Add_new_item" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute 
-    top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+    <button type="button" data-drawer-dismiss="Add_new_item" aria-controls="Add_new_item" class="text-indigo-400 bg-transparent hover:bg-indigo-200 hover:text-indigo-900 rounded-lg text-sm p-1.5 absolute 
+    top-2.5 right-2.5 inline-flex items-center dark:hover:bg-indigo-600 dark:hover:text-white">
         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -280,25 +218,25 @@ Inventory
         {% csrf_token %}
         <div class="space-y-4">
             <div>
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                <label for="name" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Name</label>
                 <input type="text" name="name" id="name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Type product name" required="">
             </div>
             <div>
                 <label for="description"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Description</label>
                 <textarea name="description" id="description" rows="4"
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 
-                focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    class="block p-2.5 w-full text-sm text-indigo-950 bg-indigo-50 rounded-lg border border-indigo-300 focus:ring-primary-500 
+                focus:border-primary-500 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Enter product description here"></textarea>
             </div>
             <div>
-                <label for="class" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product
+                <label for="class" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Product
                     class</label>
                 <select name="class" id="class"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
+                dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option selected="">Select the product class</option>
                     {% for class in classes %}
                     <option value="{{class.id}}">{{class}}</option>
@@ -306,50 +244,50 @@ Inventory
                 </select>
             </div>
             <div>
-                <label for="color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+                <label for="color" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Color</label>
                 <select name="color" id="color"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
+                dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option selected="">Select the color</option>
-                    {% for color in color_choices %}
-                    <option value="{{color}}">{{color}}</option>
+                    {% for color in colors %}
+                    <option value="{{color.id}}">{{color}}</option>
                     {% endfor %}
                 </select>
             </div>
 
             <div>
-                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                <label for="price" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Price</label>
                 <input type="number" name="price" id="price"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
-                block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
+                block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="10€" required="" step="0.01">
             </div>
             <div>
-                <label for="amount_instock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount
+                <label for="amount_instock" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Amount
                     of product in stock</label>
                 <input type="number" name="amount_instock" id="amount_instock"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
-                block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
+                block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Amount in stock" required="">
             </div>
             <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload
+                <label class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white" for="file_input">Upload
                     product image</label>
                 <input
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    class="block w-full text-sm text-indigo-950 border border-indigo-300 rounded-lg cursor-pointer bg-indigo-50 dark:text-indigo-400 focus:outline-none dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400"
                     id="image" name="image" type="file" accept="image" />
             </div>
 
             <div class="bottom-0 left-0 flex justify-center w-full pb-4 space-x-4 md:px-4 md:absolute">
-                <button type="submit" name="add_new_product" class="inline-flex w-full justify-center text-gray-500 items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 
-                rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white 
-                dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                <button type="submit" name="add_new_product" class="inline-flex w-40 justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+                rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
+                dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">
                     Add product
                 </button>
                 <button type="button" data-drawer-dismiss="Add_new_item" aria-controls="Add_new_item"
-                    class="inline-flex w-full justify-center text-gray-500 items-center 
-                bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 
-                dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    class="inline-flex w-40 justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+                    rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
+                    dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">
                     <svg aria-hidden="true" class="w-5 h-5 -ml-1 sm:mr-1" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -442,26 +380,6 @@ Inventory
                 });
             });
         });
-
-
-
-
-        const createPdfButton = document.getElementById('create_pdfButton');
-        const pdfFormContainer = document.getElementById('pdfTableBody');
-
-
-        createPdfButton.addEventListener('click', function () {
-            // Fetch the edit drawer content using AJAX
-            let idsString = checkedItemIds.join('+');
-            fetch(`/get_pdf_items?ids=${idsString}`)
-                .then(response => response.text())
-                .then(data => {
-                    // Render the edit drawer content
-                    pdfFormContainer.innerHTML = data;
-                });
-        });
-
     });
 </script>
-
-{% endblock %}
+{% endblock javascript%}

@@ -4,14 +4,20 @@ from .forms import CreateItemForm
 from django.template.loader import render_to_string 
 from django.utils.datastructures import MultiValueDictKeyError
 from django.http import JsonResponse
+from orders.models import Status, Order
+from django.db.models import Sum
+from django.utils.timezone import datetime
+from datetime import datetime, timedelta
+from customers.models import Customer
+
 
 # Create your views here.
 def inventory(request):
     if request.method == "GET":
         items = Item.objects.all()
         classes = ProductClass.objects.all()
-        color_choices = Color.objects.all()
-        return render(request, "dashboard/inventory.html", {"items": items, "classes": classes, "color_choices": color_choices})
+        colors = Color.objects.all()
+        return render(request, "dashboard/inventory.html", {"items": items, "classes": classes, "colors": colors})
     
     elif request.method == "POST": 
 
@@ -24,7 +30,7 @@ def inventory(request):
             new_description = form_data.get("description").strip()
             new_class_id = form_data.get("class")
             new_class = ProductClass.objects.get(pk=int(new_class_id))
-            new_color = form_data.get("color")
+            new_color = Color.objects.get(pk=int(form_data.get("color")))
             new_price  = form_data.get("price").strip()
             amount_to_stock = form_data.get("amount_instock")
             new_image = request.FILES["image"]
@@ -48,7 +54,7 @@ def inventory(request):
             new_description = form_data.get("description").strip()
             new_class_id = form_data.get("class")
             new_class = ProductClass.objects.get(pk=int(new_class_id))
-            new_color = form_data.get("color")
+            new_color = Color.objects.get(pk=int(form_data.get("color")))
             new_price  = form_data.get("price").strip()
             new_amount_instock = form_data.get("amount_instock")
             
@@ -88,13 +94,53 @@ def inventory(request):
 
 
 def dashboard(request):
+    amount_productclass_mug = Item.objects.filter(productclass__name="Mug").aggregate(Sum("amount_instock"))['amount_instock__sum']
+    amount_productclass_plate = Item.objects.filter(productclass__name="Plate").aggregate(Sum("amount_instock"))['amount_instock__sum']
+    amount_productclass_bowl = Item.objects.filter(productclass__name="Bowl").aggregate(Sum("amount_instock"))['amount_instock__sum']
+    order_status_received = Order.objects.filter(status__name_of_status="order received").count()
+    order_status_packing = Order.objects.filter(status__name_of_status="packaging process").count()
+    order_status_delivery = Order.objects.filter(status__name_of_status="package on delivery").count()
+    order_status_delivered = Order.objects.filter(status__name_of_status="package received").count()
+    # Get today's date
+    today = datetime.today().date()
+    # Get yesterday's date
+    yesterday = today - timedelta(days=1)
+    # Get the date 2 days ago
+    two_days_ago = today - timedelta(days=2)
+    # Get the date 3 days ago
+    three_days_ago = today - timedelta(days=3)
+    # Count orders for today
+    orders_today = Order.objects.filter(created_at__date=today).count()
+    # Count orders for yesterday
+    orders_yesterday = Order.objects.filter(created_at__date=yesterday).count()
+    # Count orders for 2 days ago
+    orders_2daysago = Order.objects.filter(created_at__date=two_days_ago).count()
+    # Count orders for 3 days ago
+    orders_3daysago = Order.objects.filter(created_at__date=three_days_ago).count()
+    # Count orders older than 3 days
+    orders_olderthan3 = Order.objects.filter(created_at__date__lt=three_days_ago).count()
+    orders_total = Order.objects.all().count()
+    amount_all_customers = Customer.objects.all().count()
+    all_customer_objects = Customer.objects.all()
+    return render(request, "dashboard/dashboard.html", 
+                  {"amount_productclass_mug": amount_productclass_mug, 
+                   "amount_productclass_plate": amount_productclass_plate, 
+                   "amount_productclass_bowl": amount_productclass_bowl,
+                   "order_status_received": order_status_received,
+                   "order_status_packing": order_status_packing,
+                   "order_status_delivery": order_status_delivery,
+                   "order_status_delivered": order_status_delivered,
+                   "orders_today": orders_today,
+                   "orders_yesterday": orders_yesterday,
+                   "orders_2daysago": orders_2daysago,
+                   "orders_3daysago": orders_3daysago,
+                   "orders_olderthan3": orders_olderthan3,
+                   "orders_total": orders_total,
+                   "amount_all_customers": amount_all_customers,
+                   "all_customer_objects": all_customer_objects
+                   })
 
-    return render(request, "dashboard/dashboard.html", {})
 
-
-
-def stats_view(request):
-    return render(request, "dashboard/stats.html")
 
 def create_item_view(request):
     if request.method == "POST": 
@@ -112,7 +158,7 @@ def get_edit_drawer(request, item_id):
     item_to_be_edited = Item.objects.get(pk=item_id)
     classes = ProductClass.objects.all()
     item_class_id = ProductClass.objects.get(name=item_to_be_edited.productclass)
-    color_choices = Color.objects.all()
-    context = {'item_to_be_edited': item_to_be_edited,"classes": classes, "item_class_id": item_class_id,"color_choices": color_choices}
+    colors = Color.objects.all()
+    context = {'item_to_be_edited': item_to_be_edited,"classes": classes, "item_class_id": item_class_id,"colors": colors}
     edit_drawer_content = render_to_string('dashboard/edit_drawer.html', context)
     return HttpResponse(edit_drawer_content)

@@ -6,31 +6,485 @@ Dashboard
 
 {% block content %}
 
-<h1 class="mb-6 text-3xl text-green-800">Django + Tailwind CSS + Flowbite</h1>
-<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-        <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
-    </a>
-    <div class="p-5">
-        <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                acquisitions 2021</h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-            acquisitions of 2021 so far, in reverse chronological order.</p>
-        <a href="#"
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-            Read more
-            <svg class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clip-rule="evenodd"></path>
-            </svg>
-        </a>
+
+<input hidden id="amount_productclass_mug" value="{{amount_productclass_mug}}">
+<input hidden id="amount_productclass_plate" value="{{amount_productclass_plate}}">
+<input hidden id="amount_productclass_bowl" value="{{amount_productclass_bowl}}">
+<input hidden id="order_status_received" value="{{order_status_received}}">
+<input hidden id="order_status_packing" value="{{order_status_packing}}">
+<input hidden id="order_status_delivery" value="{{order_status_delivery}}">
+<input hidden id="order_status_delivered" value="{{order_status_delivered}}">
+<input hidden id="orders_total" value="{{orders_total}}">
+<input hidden id="orders_today" value="{{orders_today}}">
+<input hidden id="orders_yesterday" value="{{orders_yesterday}}">
+<input hidden id="orders_2daysago" value="{{orders_2daysago}}">
+<input hidden id="orders_3daysago" value="{{orders_3daysago}}">
+<input hidden id="orders_olderthan3" value="{{orders_olderthan3}}">
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+    <!--This is the graph for the inventory categorized by productclass-->
+    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-indigo-800 p-4 md:p-6 flex-col md:flex-col mx-2.5">
+        <div class="flex justify-between mb-3">
+            <div class="flex justify-center items-center">
+                <h5 class="text-3xl font-bold leading-none text-indigo-900 dark:text-white pe-1">Our inventory</h5>
+                <svg data-popover-target="chart-info-donut" data-popover-placement="bottom"
+                    class="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-white cursor-pointer ms-1"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
+                </svg>
+                <div data-popover id="chart-info-donut" role="tooltip"
+                    class="absolute z-10 invisible inline-block text-sm text-indigo-500 transition-opacity duration-300 bg-white border border-indigo-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-indigo-800 dark:border-indigo-600 dark:text-indigo-400">
+                    <div class="p-3 space-y-2">
+                        <h3 class="font-semibold text-indigo-900 dark:text-white">Our Inventory</h3>
+                        <p>Here you can see our Inventory. The visualization is categorized by the different product
+                            classes. </p>
+                        <h3 class="font-semibold text-indigo-900 dark:text-white">Calculation</h3>
+                        <p>For each product class the sum of all the products of this productclass in our inventory is
+                            being displayed. </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="py-6" id="donut-chart"></div>
+        <div class="grid grid-cols-1 items-center border-indigo-200 border-t dark:border-indigo-700 justify-between">
+            <div class="flex justify-between items-center pt-5">
+                <a href="inventory"
+                    class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-indigo-600 hover:text-indigo-700 dark:hover:text-indigo-500  hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:focus:ring-indigo-700 dark:border-indigo-700 px-3 py-2">
+                    Our Inventory
+                    <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                </a>
+
+            </div>
+        </div>
     </div>
+
+    <!--This is the graph for the order progress categorized by the status-->
+    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-indigo-800 p-4 md:p-6 flex-col md:flex-col mx-2.5">
+        <div class="flex justify-between mb-3">
+            <div class="flex items-center">
+                <div class="flex justify-center items-center">
+                    <h5 class="text-3xl font-bold leading-none text-indigo-900 dark:text-white pe-1">Our order progress
+                    </h5>
+                    <svg data-popover-target="chart-info-radial" data-popover-placement="bottom"
+                        class="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-white cursor-pointer ms-1"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
+                    </svg>
+                    <div data-popover id="chart-info-radial" role="tooltip"
+                        class="absolute z-10 invisible inline-block text-sm text-indigo-500 transition-opacity duration-300 bg-white border border-indigo-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-indigo-800 dark:border-indigo-600 dark:text-indigo-400">
+                        <div class="p-3 space-y-2">
+                            <h3 class="font-semibold text-indigo-900 dark:text-white">Our order progress</h3>
+                            <p>Here you can see all the orders categorized by order status. </p>
+                            <h3 class="font-semibold text-indigo-900 dark:text-white">Calculation</h3>
+                            <p>This radial displays the percent of orders in the specific status.</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-indigo-50 dark:bg-indigo-700 p-3 rounded-lg">
+            <div class="grid grid-cols-3 gap-3 mb-2">
+                <dl class="bg-indigo-50 dark:bg-indigo-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+                    <dt
+                        class="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-500 text-indigo-600 dark:text-indigo-300 text-sm font-medium flex items-center justify-center mb-1">
+                        {{order_status_received}}</dt>
+                    <dd class="text-indigo-600 dark:text-indigo-300 text-sm font-medium">Order received</dd>
+                </dl>
+                <dl class="bg-emerald-50 dark:bg-indigo-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+                    <dt
+                        class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-indigo-500 text-emerald-600 dark:text-emerald-300 text-sm font-medium flex items-center justify-center mb-1">
+                        {{order_status_packing}}</dt>
+                    <dd class="text-emerald-600 dark:text-emerald-300 text-sm font-medium">Packaging process</dd>
+                </dl>
+                <dl class="bg-red-50 dark:bg-indigo-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+                    <dt
+                        class="w-8 h-8 rounded-full bg-red-100 dark:bg-indigo-500 text-red-600 dark:text-red-300 text-sm font-medium flex items-center justify-center mb-1">
+                        {{order_status_delivery}}</dt>
+                    <dd class="text-red-600 dark:text-red-300 text-sm font-medium">Package on delivery</dd>
+                </dl>
+                <dl class="bg-violet-50 dark:bg-indigo-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+                    <dt
+                        class="w-8 h-8 rounded-full bg-violet-100 dark:bg-indigo-500 text-violet-600 dark:text-violet-300 text-sm font-medium flex items-center justify-center mb-1">
+                        {{order_status_delivered}}</dt>
+                    <dd class="text-violet-600 dark:text-violet-300 text-sm font-medium">Package received</dd>
+                </dl>
+            </div>
+        </div>
+
+        <!-- Radial Chart -->
+        <div class="py-6" id="radial-chart"></div>
+
+        <div class="grid grid-cols-1 items-center border-indigo-200 border-t dark:border-indigo-700 justify-between">
+            <div class="flex justify-between items-center pt-5">
+                <a href="orders"
+                    class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-indigo-600 hover:text-indigo-700 dark:hover:text-indigo-500  hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:focus:ring-indigo-700 dark:border-indigo-700 px-3 py-2">
+                    Our Orders
+                    <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!--This is the graph for the orders over the past couple of days-->
+    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-indigo-800 p-4 md:p-6 flex-col md:flex-col mx-2.5">
+        <div class="flex justify-between mb-3">
+            <div class="flex justify-center items-center">
+                <h5 class="text-3xl font-bold leading-none text-indigo-900 dark:text-white pe-1">Our orders</h5>
+                <svg data-popover-target="chart-info-chart" data-popover-placement="bottom"
+                    class="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-white cursor-pointer ms-1"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
+                </svg>
+                <div data-popover id="chart-info-chart" role="tooltip"
+                    class="absolute z-10 invisible inline-block text-sm text-indigo-500 transition-opacity duration-300 bg-white border border-indigo-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-indigo-800 dark:border-indigo-600 dark:text-indigo-400">
+                    <div class="p-3 space-y-2">
+                        <h3 class="font-semibold text-indigo-900 dark:text-white">Our Inventory</h3>
+                        <p>Here you can see our Inventory. The visualization is categorized by the different product
+                            classes. </p>
+                        <h3 class="font-semibold text-indigo-900 dark:text-white">Calculation</h3>
+                        <p>For each product class the sum of all the products of this productclass in our inventory is
+                            being displayed. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="area-chart"></div>
+        <div class="grid grid-cols-1 items-center border-indigo-200 border-t dark:border-indigo-700 justify-between">
+            <div class="flex justify-between items-center pt-5">
+                <a href="orders"
+                    class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-indigo-600 hover:text-indigo-700 dark:hover:text-indigo-500  hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:focus:ring-indigo-700 dark:border-indigo-700 px-3 py-2">
+                    Our Orders
+                    <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--This is the list displaying the happy customers-->
+    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-indigo-800 p-4 md:p-6 flex-col md:flex-col mx-2.5">
+        <div class="flex justify-between mb-3">
+            <div class="flex justify-center items-center">
+                <h5 class="text-3xl font-bold leading-none text-indigo-900 dark:text-white pe-1">Our happy customers</h5>
+                <svg data-popover-target="chart-info-customer-list" data-popover-placement="bottom"
+                    class="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-white cursor-pointer ms-1"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
+                </svg>
+                <div data-popover id="chart-info-customer-list" role="tooltip"
+                    class="absolute z-10 invisible inline-block text-sm text-indigo-500 transition-opacity duration-300 bg-white border border-indigo-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-indigo-800 dark:border-indigo-600 dark:text-indigo-400">
+                    <div class="p-3 space-y-2">
+                        <h3 class="font-semibold text-indigo-900 dark:text-white">Customer list</h3>
+                        <p>Here you can see a list of all our happy customers. </p>
+                        <h3 class="font-semibold text-indigo-900 dark:text-white">Amount of customers</h3>
+                        <p>Right now we have {{amount_all_customers}} customers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <table>
+                {% for customer in all_customer_objects %}
+                <tr>
+                    <td class="px-6 py-4 text-indigo-900">
+                        {{customer.name}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="grid grid-cols-1 items-center border-indigo-200 border-t dark:border-indigo-700 justify-between">
+            <div class="flex justify-between items-center pt-5">
+
+                <a href="customers"
+                    class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-indigo-600 hover:text-indigo-700 dark:hover:text-indigo-500  hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:focus:ring-indigo-700 dark:border-indigo-700 px-3 py-2">
+                    Our Customers
+                    <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
-<h1>THis is the dashboard</h1>
+{% endblock content %}
+{% block javascript %}
 
-{% endblock %}
+<!--Script for the example graph-->
+<script>
+    const getChartOptions = (mugValue, plateValue, bowlValue) => {
+        return {
+            series: [mugValue, plateValue, bowlValue], //numbers that are displayed
+            colors: ["#8DA2FB", "#31C48D", "#F98080", ],
+            chart: {
+                height: "82%",
+                width: "100%",
+                type: "donut",
+            },
+            stroke: {
+                colors: ["transparent"],
+                lineCap: "",
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        labels: {
+                            show: true,
+                            name: {
+                                show: true,
+                                fontFamily: "Inter, sans-serif",
+                                offsetY: 20,
+                            },
+                            total: {
+                                showAlways: true,
+                                show: true,
+                                label: "Items in stock",
+                                fontFamily: "Inter, sans-serif",
+                                formatter: function (w) {
+                                    const sum = w.globals.seriesTotals.reduce((a, b) => {
+                                        return a + b
+                                    }, 0)
+                                    return sum
+                                },
+                            },
+                            value: {
+                                show: true,
+                                fontFamily: "Inter, sans-serif",
+                                offsetY: -20,
+                                formatter: function (value) {
+                                    return value
+                                },
+                            },
+                        },
+                        size: "80%",
+                    },
+                },
+            },
+            grid: {
+                padding: {
+                    top: -2,
+                },
+            },
+            labels: ["Mugs", "Plates", "Bowls"],
+            dataLabels: {
+                enabled: false,
+            },
+            legend: {
+                position: "bottom",
+                fontFamily: "Inter, sans-serif",
+            },
+            yaxis: {
+                labels: {
+                    formatter: function (value) {
+                        return value
+                    },
+                },
+            },
+            xaxis: {
+                labels: {
+                    formatter: function (value) {
+                        return value
+                    },
+                },
+                axisTicks: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: false,
+                },
+            },
+        }
+    }
+
+    if (document.getElementById("donut-chart") && typeof ApexCharts !== 'undefined') {
+        // Retrieve values from hidden inputs
+        const mugValue = parseFloat(document.getElementById("amount_productclass_mug").value) || 0;
+        const plateValue = parseFloat(document.getElementById("amount_productclass_plate").value) || 0;
+        const bowlValue = parseFloat(document.getElementById("amount_productclass_bowl").value) || 0;
+        const chart = new ApexCharts(document.getElementById("donut-chart"), getChartOptions(mugValue, plateValue, bowlValue));
+        chart.render();
+    }
+
+
+    const getChartOptionsRadial = (received, packing, delivery, delivered, orders_total) => {
+        const calculatePercentage = (value) => {
+        return ((value / orders_total) * 100).toFixed(2);
+        };
+        return {
+            series: [calculatePercentage(received), calculatePercentage(packing), calculatePercentage(delivery), calculatePercentage(delivered)],
+            colors: ["#8DA2FB", "#31C48D", "#F98080", "#7E3AF2"],
+            chart: {
+                height: "58%",
+                width: "100%",
+                type: "radialBar",
+                sparkline: {
+                    enabled: true,
+                },
+            },
+            plotOptions: {
+                radialBar: {
+                    track: {
+                        background: '#E5E7EB',
+                    },
+                    dataLabels: {
+                        show: false,
+                    },
+                    hollow: {
+                        margin: 0,
+                        size: "32%",
+                    }
+                },
+            },
+            grid: {
+                show: false,
+                strokeDashArray: 4,
+                padding: {
+                    left: 2,
+                    right: 2,
+                    top: -23,
+                    bottom: -20,
+                },
+            },
+            labels: ["Order received", "Packing process", "Package on delivery", "Package received"],
+            legend: {
+                show: true,
+                position: "bottom",
+                fontFamily: "Inter, sans-serif",
+            },
+            tooltip: {
+                enabled: true,
+                x: {
+                    show: false,
+                },
+            },
+            yaxis: {
+                show: false,
+                labels: {
+                    formatter: function (value) {
+                        return value + '%';
+                    }
+                }
+            }
+        }
+    }
+
+    if (document.getElementById("radial-chart") && typeof ApexCharts !== 'undefined') {
+        const received = parseFloat(document.getElementById("order_status_received").value) || 0;
+        const packing = parseFloat(document.getElementById("order_status_packing").value) || 0;
+        const delivery = parseFloat(document.getElementById("order_status_delivery").value) || 0;
+        const delivered = parseFloat(document.getElementById("order_status_delivered").value) || 0;
+        const orders_total = parseFloat(document.getElementById("orders_total").value) || 0;
+        const chart = new ApexCharts(document.querySelector("#radial-chart"), getChartOptionsRadial(received, packing, delivery, delivered,orders_total));
+        chart.render();
+    }
+
+
+    const getChartOptionsAreaChart = (olderthan3days, threedaysago, twodaysago, yesterday, today) => {
+        return {
+            chart: {
+                height: "88%",
+                maxWidth: "100%",
+                type: "area",
+                fontFamily: "Inter, sans-serif",
+                dropShadow: {
+                    enabled: false,
+                },
+                toolbar: {
+                    show: false,
+                },
+            },
+            tooltip: {
+                enabled: true,
+                x: {
+                    show: false,
+                },
+            },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    opacityFrom: 0.55,
+                    opacityTo: 0,
+                    shade: "#6875F5",
+                    gradientToColors: ["#6875F5"],
+                },
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                width: 6,
+            },
+            grid: {
+                show: false,
+                strokeDashArray: 4,
+                padding: {
+                    left: 2,
+                    right: 2,
+                    top: 0
+                },
+            },
+            series: [
+                {
+                    name: "orders",
+                    data: [olderthan3days, threedaysago, twodaysago, yesterday, today],
+                    color: "#1A56DB",
+                },
+            ],
+            xaxis: {
+                categories: ['later than 3 days ago', '3 days ago', '2 days ago', 'Yesterday', 'Today'],
+                labels: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: false,
+                },
+                axisTicks: {
+                    show: false,
+                },
+            },
+            yaxis: {
+                show: false,
+            },
+        }
+    }
+
+    if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
+        const olderthan3days = parseFloat(document.getElementById("orders_olderthan3").value) || 0;
+        const threedaysago = parseFloat(document.getElementById("orders_3daysago").value) || 0;
+        const twodaysago = parseFloat(document.getElementById("orders_2daysago").value) || 0;
+        const yesterday = parseFloat(document.getElementById("orders_yesterday").value) || 0;
+        const today = parseFloat(document.getElementById("orders_today").value) || 0;
+        const chart = new ApexCharts(document.getElementById("area-chart"), getChartOptionsAreaChart(olderthan3days, threedaysago, twodaysago, yesterday, today));
+        chart.render();
+    }
+
+</script>
+
+{% endblock javascript %}

@@ -11,74 +11,74 @@
         {% endif %}
     </div>
     <div>
-        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+        <label for="name" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Name</label>
         <input type="text" name="name" id="name"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
             value="{{item_to_be_edited.name}}" required="">
     </div>
     <div>
         <label for="description"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+            class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Description</label>
         <textarea name="description" id="description" rows="4"
-            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 
-                focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">{{item_to_be_edited.description}}</textarea>
+            class="block p-2.5 w-full text-sm text-indigo-950 bg-indigo-50 rounded-lg border border-indigo-300 focus:ring-primary-500 
+                focus:border-primary-500 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">{{item_to_be_edited.description}}</textarea>
     </div>
     <div>
-        <label for="class" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product
+        <label for="class" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Product
             class</label>
         <select name="class" id="class"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
+                dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             {% for class in classes %}
             <option value="{{class.id}}">{{class}}</option>
             {% endfor %}
         </select>
     </div>
     <div>
-        <label for="color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+        <label for="color" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Color</label>
         <select name="color" id="color"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-            {% for color in color_choices %}
-            <option value="{{color}}">{{color}}</option>
+            class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
+                dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            {% for color in colors %}
+            <option value="{{color.id}}">{{color}}</option>
             {% endfor %}
         </select>
     </div>
 
     <div>
-        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+        <label for="price" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Price</label>
         <input type="number" step="0.01" name="price" id="price"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
-                block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
+                block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
             value="{{item_to_be_edited.price}}" required="">
     </div>
     <div>
-        <label for="amount_instock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount
+        <label for="amount_instock" class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white">Amount
             of product in stock</label>
         <input type="number" name="amount_instock" id="amount_instock"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
-                block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            class="bg-indigo-50 border border-indigo-300 text-indigo-950 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
+                block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
             value="{{item_to_be_edited.amount_instock}}" required="">
     </div>
     <div>
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload
+        <label class="block mb-2 text-sm font-medium text-indigo-950 dark:text-white" for="file_input">Upload
             product image</label>
         <input
-            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            class="block w-full text-sm text-indigo-950 border border-indigo-300 rounded-lg cursor-pointer bg-indigo-50 dark:text-indigo-400 focus:outline-none dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400"
             id="image" name="image" type="file" accept="image" onchange="document.getElementById('current-image').src = window.URL.createObjectURL(this.files[0])"/>
     </div>
 
 
     <div class=" left-0 flex justify-center w-full pb-4 space-x-4 md:px-4 md:absolute">
-        <button type="submit" name="edit_product" class="inline-flex w-full justify-center text-gray-500 items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 
-                rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white 
-                dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        <button type="submit" name="edit_product" class="inline-flex w-40 justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+        rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
+        dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">
             Edit product
         </button>
         <button type="button" data-drawer-dismiss="edit_item" aria-controls="edit_item"
-            class="inline-flex w-full justify-center text-gray-500 items-center 
-                bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 
-                dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+            class="inline-flex w-40 justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+            rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
+            dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">
             <svg aria-hidden="true" class="w-5 h-5 -ml-1 sm:mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">

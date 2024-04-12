@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig', # setting up the dashboard app
-    'users.apps.UsersConfig', # setting up the users app
     'django_browser_reload',
     'compressor',
     'customers.apps.CustomersConfig', # setting up the customers app
