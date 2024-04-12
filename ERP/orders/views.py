@@ -76,7 +76,13 @@ def new_order(request):
         # update the amount of inventory in the database
         for i in range(len(list_item_ids)):
             item_to_change = Item.objects.get(pk=list_item_ids[i])
+            print(item_to_change)
             new_amount = int(item_to_change.amount_instock) - int(list_amounts_of_products[i])
+            if new_amount < 0:
+                return HttpResponse("Not enough product in stock", status=400)
+            print(int(item_to_change.amount_instock))
+            print(int(list_amounts_of_products[i]))
+            print(new_amount)
             item_to_change.amount_instock = new_amount
             item_to_change.save()
         return redirect("orders:orders")

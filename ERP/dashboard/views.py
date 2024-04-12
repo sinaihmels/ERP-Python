@@ -142,9 +142,6 @@ def dashboard(request):
 
 
 
-def stats_view(request):
-    return render(request, "dashboard/stats.html")
-
 def create_item_view(request):
     if request.method == "POST": 
         form = CreateItemForm(request.POST, request.FILES)
