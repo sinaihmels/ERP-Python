@@ -30,8 +30,8 @@ def customers(request):
                 customer_to_delete = Customer.objects.get(pk=customer_id)
                 customer_to_delete.delete()
                 return redirect("customers:customers")
-            except Item.DoesNotExist:
-                return HttpResponse("Item not found", status=400)
+            except Customer.DoesNotExist:
+                return HttpResponse("Customer not found", status=400)
 
         
 def new_customer(request):    

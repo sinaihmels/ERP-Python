@@ -39,115 +39,121 @@ customers
 
 <!--This is the table created for the items within the database-->
 <div class="overflow-x-auto mx-1.5">
-<table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400">
-    <thead class="text-s text-indigo-900 uppercase bg-gray-300">
-        <tr>
-            <th scope="col" class="px-6 py-3">
-                Customer id
-            </th>
+    <table class="w-full text-sm text-left rtl:text-right text-indigo-200 dark:text-indigo-400">
+        <thead class="text-s text-indigo-900 uppercase bg-gray-300">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Customer id
+                </th>
 
-            <th scope="col" class="px-6 py-3">
-                Customer name
-            </th>
-            <th scope="col" class="px-6 py-3">
-                Address
-            </th>
-            <th scope="col" class="px-6 py-3">
-                Contact details
-            </th>
+                <th scope="col" class="px-6 py-3">
+                    Customer name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Address
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Contact details
+                </th>
 
-            <th scope="col" class="px-3 py-3">
-                View customer details
-            </th>
-            <th scope="col" class="px-3 py-3">
-                Delete customer
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for customer in customers %}
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700"
-            id="customersrow">
-            <td class="customer_id px-6 py-4" >
-                {{customer.id}}
-            </td>
-            <td class="customer_name px-6 py-4" >
-                {{customer.name}}
-            </td>
-            <td class="customer_address px-6 py-4">
-                {{customer.address}}
-            </td>
-            <td class="contact_details px-6 py-4" id="contactinfo">
-
-                Email: {{customer.email}}
-                <p></p>
-                Phone: {{customer.phone}}
-
-            </td>
-            <td class="px-3 py-4">
-                <button data-details-id="{{customer.id}}" data-drawer-show="details_customer"
-                    data-drawer-target="details_customer" aria-controls="details_customer" data-drawer-placement="right"
-                    class="customer_details_button inline-flex w-auto justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+                <th scope="col" class="px-3 py-3">
+                    View customer details
+                </th>
+                <th scope="col" class="px-3 py-3">
+                    Delete customer
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-indigo-700"
+                id="customersrow">
+                <td class="customer_id px-6 py-4">
+                    {{customer.id}}
+                </td>
+                <td class="customer_name px-6 py-4">
+                    {{customer.name}}
+                </td>
+                <td class="customer_address px-6 py-4">
+                    {{customer.address}}
+                </td>
+                <td class="contact_details px-6 py-4" id="contactinfo">
+                    Email: {{customer.email}}
+                    <p></p>
+                    Phone: {{customer.phone}}
+                </td>
+                <td class="px-3 py-4">
+                    <button data-details-id="{{customer.id}}" data-drawer-show="details_customer"
+                        data-drawer-target="details_customer" aria-controls="details_customer"
+                        data-drawer-placement="right" class="customer_details_button inline-flex w-auto justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
                     rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
                     dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">Customer details</button>
-            </td>
-            <td class="px-3 py-4">
-                <button id="deleteButton-{{customer.id}}" data-modal-target="deleteModal-{{customer.id}}" data-modal-toggle="deleteModal" class="inline-flex w-auto justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
+                </td>
+                <td class="px-3 py-4">
+                    <button id="deleteButton-{{customer.id}}" data-modal-target="deleteModal-{{customer.id}}"
+                        data-modal-toggle="deleteModal" class="inline-flex w-auto justify-center text-indigo-950 items-center bg-indigo-200 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-primary-300 
                 rounded-lg border border-indigo-200 text-sm font-medium px-5 py-2.5 hover:text-indigo-950 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white 
                 dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">Delete</button>
-            </td>
-        </tr>
-        
-    </tbody>
-    <!-- Alert box for delete -->
-    <div id="deleteModal-{{customer.id}}" tabindex="-1" aria-hidden="true"
-    class="hidden flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-    <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-        <!-- Modal content -->
-        <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-indigo-800 sm:p-5">
-            <button type="button" class="text-indigo-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-indigo-200 hover:text-indigo-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-indigo-600 
-    dark:hover:text-white" data-modal-toggle="deleteModal" id="closemodalbutton">
-                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-                <span class="sr-only">Close modal</span>
-            </button>
-            <svg class="text-indigo-900 dark:text-indigo-900 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true"
-                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                    clip-rule="evenodd"></path>
-            </svg>
-            <p class="mb-4 text-indigo-900 dark:text-indigo-300">Are you sure you want to delete this customer?</p>
-            <div class="flex justify-center items-center space-x-4">
-                <button data-modal-toggle="deleteModal" type="button"
-                    class="no-cancel-button py-2 px-3 text-sm font-medium text-indigo-900 bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 focus:ring-4 focus:outline-none 
-        focus:ring-primary-300 hover:text-indigo-900 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">
-                    No, cancel
-                </button>
-                <form method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="delete_customer py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 
-        dark:hover:bg-red-600 dark:focus:ring-red-900" name="delete_customer" value="{{customer.id}}">
-                        Yes, I'm sure
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-{% endfor %}
-</table>
-</div>
+                    <!-- Alert box for delete -->
+                    <div id="deleteModal-{{customer.id}}" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                            <!-- Modal content -->
+                            <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-indigo-800 sm:p-5">
+                                <button type="button"
+                                    class="text-indigo-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-indigo-200 hover:text-indigo-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-indigo-600 
+                    dark:hover:text-white" data-modal-toggle="deleteModal-{{customer.id}}">
+                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
+                                <svg class="text-indigo-900 dark:text-indigo-900 w-11 h-11 mb-3.5 mx-auto"
+                                    aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <p class="mb-4 text-indigo-900 dark:text-indigo-300">Are you sure you want to delete this
+                                    customer?
+                                </p>
+                                <div class="flex justify-center items-center space-x-4">
+                                    <button data-modal-toggle="deleteModal-{{customer.id}}" type="button"
+                                        class="py-2 px-3 text-sm font-medium text-indigo-900 bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 focus:ring-4 focus:outline-none 
+                            focus:ring-primary-300 hover:text-indigo-900 focus:z-10 dark:bg-indigo-700 dark:text-indigo-300 dark:border-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 dark:focus:ring-indigo-600">
+                                        No, cancel
+                                    </button>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                            class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 
+                            dark:hover:bg-red-600 dark:focus:ring-red-900" name="delete_customer"
+                                            value="{{customer.id}}">
+                                            Yes, I'm sure
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>        
+
 
 <!--This is the details item container-->
 <div id="details_customer"
     class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-indigo-800"
     tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
-    <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-indigo-950 dark:text-indigo-950">
+    <h5 id="drawer-label"
+        class="inline-flex items-center mb-6 text-sm font-semibold text-indigo-950 dark:text-indigo-950">
         Details of the customer</h5>
     <button type="button" data-drawer-dismiss="details_customer" aria-controls="details_customer" class="text-indigo-400 bg-transparent hover:bg-indigo-200 hover:text-indigo-900 rounded-lg text-sm p-1.5 absolute 
     top-2.5 right-2.5 inline-flex items-center dark:hover:bg-indigo-600 dark:hover:text-white">
@@ -189,9 +195,9 @@ customers
                         // Render the customer drawer content
                         const detailsDrawerFormContainer = document.getElementById('customer-drawer-form-container');
                         detailsDrawerFormContainer.innerHTML = data;
-                        })
-                });
-        
+                    })
+            });
+
         });
     });
     document.addEventListener("DOMContentLoaded", function () {
@@ -209,56 +215,6 @@ customers
             });
         });
     });
- 
-    document.addEventListener('DOMContentLoaded', function() {
-    // Select all delete buttons
-    var deleteButtons = document.querySelectorAll('[id^="deleteButton-"]');
-    
-    // Add event listener to each delete button
-    deleteButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the default action (form submission)
-            var customerId = this.id.split('-')[1]; // Extract customer ID from button ID
-            var deleteModal = document.getElementById('deleteModal-' + customerId); // Find corresponding delete modal
-            if (deleteModal) {
-                deleteModal.classList.remove('hidden'); // Show the delete modal
-
-                // Select the cancel button within the delete modal
-                var cancelButton = deleteModal.querySelector('[data-modal-toggle="deleteModal"]');
-                
-                // Add event listener to the cancel button
-                cancelButton.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent the default action (form submission)
-                    deleteModal.classList.add('hidden'); // Hide the delete modal
-                });
-
-                // Select the "No, cancel" button within the delete modal
-                var noCancelButton = deleteModal.querySelector('.no-cancel-button');
-                
-                // Add event listener to the "No, cancel" button
-                noCancelButton.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent the default action (form submission)
-                    deleteModal.classList.add('hidden'); // Hide the delete modal
-                });
-            }
-        });
-    });
-
-    // Hide delete modals when clicking outside them or on the close button
-    document.addEventListener('click', function(event) {
-        if (!event.target.closest('.relative')) {
-            var deleteModals = document.querySelectorAll('.relative[aria-hidden="false"]');
-            deleteModals.forEach(function(modal) {
-                modal.classList.add('hidden');
-            });
-        }
-    });
-});
-
-    
-
-    
-
 
 </script>
 <!--script for the search bar-->
@@ -279,5 +235,13 @@ customers
         });
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const deleteButtons = document.querySelectorAll('[id^="deleteButton-"]');
+        deleteButtons.forEach(function(button) {
+            button.click();
+        });
+    });
+  </script>
 
 {% endblock %}

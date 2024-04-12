@@ -1372,6 +1372,10 @@ input:checked + .toggle-bg {
   margin: 0.625rem;
 }
 
+.m-5 {
+  margin: 1.25rem;
+}
+
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
