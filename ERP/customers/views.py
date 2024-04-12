@@ -47,7 +47,6 @@ def new_customer(request):
         if not new_customer_address or not new_customer_email or not new_customer_name or not new_customer_phone: 
             return HttpResponse("Invalid input", status=400)
         Customer.objects.create(name=new_customer_name, email=new_customer_email, address=new_customer_address, phone=new_customer_phone)
-        print("success")
         return redirect("customers:customers")
 
 
