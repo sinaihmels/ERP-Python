@@ -162,3 +162,13 @@ def get_edit_drawer(request, item_id):
     context = {'item_to_be_edited': item_to_be_edited,"classes": classes, "item_class_id": item_class_id,"colors": colors}
     edit_drawer_content = render_to_string('dashboard/edit_drawer.html', context)
     return HttpResponse(edit_drawer_content)
+
+def datenschutz_view(request): 
+    return render(request, "dashboard/datenschutz.html")
+
+def impressum_view(request): 
+    return render(request, "dashboard/impressum.html")
+
+def nutzungsbedingungen_view(request): 
+    return render(request, "dashboard/nutzungsbedingungen.html")
+

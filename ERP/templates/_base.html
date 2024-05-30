@@ -89,6 +89,41 @@
     {% block content %}
     {% endblock content %}
   </div>
+
+  <div id="footer" class="bg-indigo-300 border-indigo-200 dark:bg-indigo-900 p-3 box justify-center mt-4 w-full">
+
+    <footer class="max-w-screen-xl mx-auto py-4">
+
+        
+            <!-- Brand -->
+            <div>
+                <a class="text-xl font-semibold text-indigo-900 dark:text-sky-50 font-mono text-center" href="#"
+                    aria-label="Brand">sinaihmels.dev</a>
+            </div>
+            <!-- End Brand -->
+
+            <!-- Navigation -->
+            <ul class="flex justify-center space-x-4 md:justify-end">
+                <li>
+                    <a class="text-sm text-indigo-500 hover:text-indigo-800 dark:text-indigo-500 dark:hover:text-indigo-200"
+                        href="{% url "dashboard:datenschutz" %}">Datenschutzerklärung</a>
+                </li>
+                <li>
+                    <a class="text-sm text-indigo-500 hover:text-indigo-800 dark:text-indigo-500 dark:hover:text-indigo-200"
+                        href="{% url "dashboard:nutzungsbedingungen" %}">Nutzungsbedingungen</a>
+                </li>
+                <li>
+                    <a class="text-sm text-indigo-500 hover:text-indigo-800 dark:text-indigo-500 dark:hover:text-indigo-200"
+                        href="{% url "dashboard:impressum" %}">Impressum</a>
+                </li>
+            </ul>
+            <!-- End Navigation -->
+     
+    </footer>
+
+</div>
+
+
   <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   {% block javascript %}
