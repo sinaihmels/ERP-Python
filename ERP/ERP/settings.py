@@ -28,7 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    'https://erp.sinaihmels.dev'
+    'https://erp.sinaihmels.dev',
+    'http://erp.sinaihmels.dev/',
+    'https://sinaihmels.dev',
+    'http://sinaihmels.dev'
+    'sinaihmels.dev',
+    'erp.sinaihmels.dev'
 ]
 
 
